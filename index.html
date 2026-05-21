@@ -2262,12 +2262,21 @@ function spSetConnected(on) {
   document.getElementById('sp-label').textContent = on ? 'Delt ✓' : 'Delt lagring';
 }
 
+
 function spStartPolling() {
   spStopPolling();
   if (!spCfg) return;
-  var ms = (parseInt(document.getElementById('sp-interval').value) || 20) * 1000;
-  spTimer = setInterval(spPull, ms);
+
+  // Bruk interval-feltet hvis det finnes, ellers bruk spCfg.interval (default 20)
+  var intEl = document.getElementById('sp-interval');
+  var sec = parseInt(intEl ? intEl.value : (spCfg.interval || 20), 10);
+
+  // Litt robusthet
+  if (!sec || sec < 10) sec = 20;
+
+  spTimer = setInterval(spPull, sec * 1000);
 }
+
 function spStopPolling() { if (spTimer) { clearInterval(spTimer); spTimer = null; } }
 
 function spUrl()     { return 'https://api.jsonbin.io/v3/b/' + spCfg.binId; }

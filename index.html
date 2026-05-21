@@ -2388,17 +2388,18 @@ window.scheduleAutoSave = scheduleAutoSave;
 // If saved data exists, load it first (skip auto-creating default underkapitler)
 var _hasSaved = false;
 try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
-if (_hasSaved) {
-  // Restore saved SECTIONS_DATA first so initTasks uses correct keys
-  initTasks();
+
+initTasks();
 loadSaved();
 render();
 spLoadConfig();
+
 var _pn=localStorage.getItem('projectName');
-if(_pn){ var _pnel=document.getElementById('project-name'); if(_pnel) _pnel.textContent=_pn; }
-
-
-
+if(_pn){
+    var _pnel=document.getElementById('project-name');
+    if(_pnel) _pnel.textContent=_pn;
+}
+``
 
 
 </script>

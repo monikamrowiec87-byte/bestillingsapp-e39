@@ -2189,36 +2189,44 @@ var spTimer    = null;
 var spLastVer  = 0;
 var spLastHash = "";
 
+
 function spLoadConfig() {
- 
+  try {
+    spCfg = {
+      binId: "6a0eea13ee5a733b12f69599",
+      apiKey: "LIM_INN_DIN_API_KEY_HER",
+      interval: 20
+    };
 
-if (raw) {
-  // Default konfig for alle (samme JSONBin)
-  spCfg = {
-    binId: "6a0eef326877513b27ab7f0c",
-    apiKey: "$2a$10$RPK1o4fWZeaBpFm4avwnKuPU9GjbXBKnEK/cnfIHk4oBEHPcu0tPW",
-    
- interval: 20
-  };
+    // lagre config
+    try {
+      localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg));
+    } catch(e) {}
 
-  try { localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg)); } catch(e) {}
+    // oppdater UI
+    document.getElementById('sp-bin-id').value = spCfg.binId;
+    document.getElementById('sp-api-key').value = spCfg.apiKey;
+    document.getElementById('sp-interval').value = spCfg.interval;
+
+    spSetConnected(true);
+    spSetStatus('Koblet til (auto).', 'ok');
+
+    // viktig
+    spLastHash = '';
+
+    // hent data
+    spPull();
+
+    // start polling (live oppdatering)
+    spStartPolling();
+
+  } catch(e) {
+    console.error(e);
+  }
 }
 
-document.getElementById('sp-bin-id').value = spCfg.binId;
-document.getElementById('sp-api-key').value = spCfg.apiKey;
-document.getElementById('sp-interval').value = spCfg.interval;
-
-spSetConnected(true);
-spSetStatus('Koblet til.', 'ok');
-
-spLastHash = '';
-spPull();
-spStartPolling();
-
-return;
 ``
 
-}
 
 
 function spConnect() {

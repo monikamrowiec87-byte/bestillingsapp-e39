@@ -2389,9 +2389,17 @@ window.scheduleAutoSave = scheduleAutoSave;
 var _hasSaved = false;
 try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
 
+
 initTasks();
 render();
 spLoadConfig();
+
+// sørg for at lagring skjer etter endring
+document.addEventListener("change", function() {
+    saveAll();
+});
+``
+
 
 var _pn=localStorage.getItem('projectName');
 if(_pn){

@@ -2191,42 +2191,33 @@ var spLastHash = "";
 
 
 
+
 function spLoadConfig() {
   try {
-    // 🔴 HER SETTER DU FELLES DATABASE FOR ALLE
     spCfg = {
       binId: "6a0eea13ee5a733b12f69599",
-      apiKey: "$2a$10$0M4pfIgXDAzd/FX6/njTweXVpofm4eVfqUEhJF5h7z2jal8l7NhuG",
+      apiKey: "$2a$10$RPK1o4fWZeaBpFm4avwnKuPU9GjbXBKnEK/cnfIHk4oBEHPcu0tPW",
       interval: 20
     };
 
-    // lagre lokalt (ikke nødvendig men fint)
-    try {
-      localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg));
-    } catch(e) {}
+    // overskriv alltid slik at gamle verdier i nettleseren ikke brukes
+    try { localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg)); } catch(e) {}
 
-    // oppdater UI (skjult setup)
     document.getElementById('sp-bin-id').value = spCfg.binId;
     document.getElementById('sp-api-key').value = spCfg.apiKey;
     document.getElementById('sp-interval').value = spCfg.interval;
 
-    // koble til automatisk
     spSetConnected(true);
     spSetStatus('Koblet til (felles database).', 'ok');
 
-    // veldig viktig
     spLastHash = '';
-
-    // ✅ hent data først
     spPull();
-
-    // ✅ start live sync
     spStartPolling();
-
   } catch(e) {
     console.error(e);
   }
 }
+
 
 
 

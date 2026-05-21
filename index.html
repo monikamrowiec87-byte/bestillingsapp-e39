@@ -1147,8 +1147,8 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: '', sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
-          });
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: ''
+          , eier: '', ansvar: '', fredagstatus: ''});
         });
       });
     } else {
@@ -1161,8 +1161,8 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: firstName, sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
-          });
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: ''
+          , eier: '', ansvar: '', fredagstatus: ''});
         });
       });
       undersecOpen[sec][firstName] = true;
@@ -1212,10 +1212,8 @@ function loadSaved() {
             selected: !!s.selected,
             frist: s.frist || '', timer: s.timer || '',
             status: s.status || 'Ikke startet',
-            link: s.link || '', comment: s.comment || '',
-            ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || '',
-            eier: s.eier || ''
-          });
+            link: s.link || '', comment: s.comment || '', eier: s.eier || '', ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || '', eier: s.eier || '', ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || ''
+          , eier: '', ansvar: '', fredagstatus: ''});
           if (s.id >= idCounter) idCounter = s.id + 1;
         });
       } else {
@@ -1227,9 +1225,9 @@ function loadSaved() {
             if (s.timer    !== undefined) t.timer    = s.timer;
             if (s.status   !== undefined) t.status   = s.status;
             if (s.link     !== undefined) t.link     = s.link;
-            if (s.comment  !== undefined) t.comment  = s.comment;
-            if (s.ansvar       !== undefined) t.ansvar       = s.ansvar;
-            if (s.eier         !== undefined) t.eier         = s.eier;
+            if (s.comment !== undefined) t.comment = s.comment;
+            if (s.eier !== undefined) t.eier = s.eier;
+            if (s.ansvar !== undefined) t.ansvar = s.ansvar;
             if (s.fredagstatus !== undefined) t.fredagstatus = s.fredagstatus;
             if (s.selected !== undefined) t.selected = s.selected;
             if (s.name     !== undefined) t.name     = s.name;
@@ -1255,7 +1253,7 @@ function saveData() {
 
 function clearAll() {
   if (!confirm('Nullstille alle valg, frister og statuser?')) return;
-  tasks.forEach(t => { t.selected=false; t.frist=''; t.timer=''; t.status='Ikke startet'; t.link=''; t.comment=''; t.ansvar=''; t.fredagstatus=''; t.eier=''; });
+  tasks.forEach(t => { t.selected=false; t.frist=''; t.timer=''; t.status='Ikke startet'; t.link=''; t.comment=''; t.eier=''; t.ansvar=''; t.fredagstatus=''; });
   saveData(); render();
   if (activeTab==='kanban') { if(kanbanView==='tidslinje') renderTimeline(); else renderKanban(); }
   if (activeTab==='dashboard') renderDashboard();
@@ -1474,10 +1472,6 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
         +' onkeydown="if(event.key===\'Escape\')cancelEditName('+t.id+')">'+esc(t.name)+'</textarea>';
       html += '</div>';
       html += '</div>';
-      html += '<input type="text" class="comment-input eier-input" placeholder="Eier\u2026" value="'+esc(t.eier)+'"'
-        +' onchange="change('+t.id+',\'eier\',this.value)">';
-      html += '<input type="text" class="comment-input ansvar-input" placeholder="Ansvar\u2026" value="'+esc(t.ansvar)+'"'
-        +' onchange="change('+t.id+',\'ansvar\',this.value)">';
       html += '<div class="locked-field-wrap" onclick="requestLockedEdit('+t.id+',\'frist\',this)">';
       html += '<div class="locked-display" style="'+(ov?'border-color:var(--red);background:var(--red-bg)':'')+'">';
       html += t.frist ? '<span style="'+(ov?'color:var(--red)':'')+'">&#128197; '+t.frist+'</span>'
@@ -1494,9 +1488,6 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
       html += '<select class="status-sel" style="background:'+sc.bg+';color:'+sc.color+'"'
         +' onchange="this.style.background=STATUS_COLORS[this.value].bg;this.style.color=STATUS_COLORS[this.value].color;change('+t.id+',\'status\',this.value)">';
       STATUSES.forEach(function(s){ html += '<option'+(t.status===s?' selected':'')+'>'+s+'</option>'; });
-      html += '</select>';
-      html += '<select class="status-sel fredag-input" onchange="change('+t.id+',\'fredagstatus\',this.value)">';
-      FREDAG_PCTS.forEach(function(p){ html += '<option value="'+p+'"'+(t.fredagstatus===p?' selected':'')+'>'+(p===''?'\u2013':p)+'</option>'; });
       html += '</select>';
       html += '<div class="link-cell">';
       html += '<input type="text" class="link-input" placeholder="https://\u2026" value="'+esc(t.link)+'"'
@@ -1814,8 +1805,8 @@ function addTask(section, sub, undersec) {
   tasks.push({
     id: idCounter++, excelId: '',
     section: section, undersec: undersec||'', sub: sub, name: name,
-    selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
-  });
+    selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: ''
+  , eier: '', ansvar: '', fredagstatus: ''});
   scheduleAutoSave();
   render();
   // Focus the new task's name for immediate editing
@@ -1866,7 +1857,7 @@ function ukModalConfirm() {
         id:idCounter++, excelId:item.id,
         section:sec, undersec:name, sub:sub, name:item.name,
         selected:false, frist:'', timer:'', status:'Ikke startet', link:'', comment:''
-      });
+      , eier: '', ansvar: '', fredagstatus: ''});
     });
   });
   if(!undersecOpen[sec]) undersecOpen[sec] = {};
@@ -2108,7 +2099,7 @@ function _doStartEditName(id){
 function commitEditName(id,val){ var v=val.trim(); if(v) change(id,'name',v); document.getElementById('nameedit-'+id).style.display='none'; var disp=document.getElementById('namedisplay-'+id); disp.style.display=''; var t=tasks.find(t=>t.id===id); var nc=disp.querySelector('.task-name-content'); if(nc) nc.innerHTML=makeName(v||t.name); scheduleAutoSave(); }
 function cancelEditName(id){ document.getElementById('nameedit-'+id).style.display='none'; document.getElementById('namedisplay-'+id).style.display=''; }
 
-function exportCSV(){ var sel=tasks.filter(t=>t.selected); if(sel.length===0){ showToast('Velg poster f\u00f8rst!'); return; } var csv='\uFEFF'; csv+='ID;Post;Eier;Ansvar/grensesnitt;Seksjon;Delkapittel;Frist;Timer;Status;Fredagstatus;Lenke;Kommentar\n'; sel.forEach(function(t){ csv+='"'+t.excelId+'";"'+t.name.replace(/\n/g,' ')+'";"'+(t.eier||'')+'";"'+(t.ansvar||'')+'";"'+t.section+'";"'+t.sub+'";"'+t.frist+'";"'+t.timer+'";"'+t.status+'";"'+(t.fredagstatus||'')+'";"'+t.link+'";"'+t.comment+'"\n'; }); var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})); a.download='bestillingsliste_'+new Date().toISOString().split('T')[0]+'.csv'; a.click(); showToast('Eksporterte '+sel.length+' poster'); }
+function exportCSV(){ var sel=tasks.filter(t=>t.selected); if(sel.length===0){ showToast('Velg poster f\u00f8rst!'); return; } var csv='\uFEFF'; csv+='ID;Post;Seksjon;Delkapittel;Frist;Timer;Status;Lenke;Kommentar\n'; sel.forEach(function(t){ csv+='"'+t.excelId+'";"'+t.name.replace(/\n/g,' ')+'";"'+t.section+'";"'+t.sub+'";"'+t.frist+'";"'+t.timer+'";"'+t.status+'";"'+t.link+'";"'+t.comment+'"\n'; }); var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})); a.download='bestillingsliste_'+new Date().toISOString().split('T')[0]+'.csv'; a.click(); showToast('Eksporterte '+sel.length+' poster'); }
 
 
 /* ════════ Beslutningslogg ════════ */
@@ -2218,44 +2209,40 @@ var spLastVer  = 0;
 var spLastHash = "";
 
 
-
-
 function spLoadConfig() {
   try {
     spCfg = {
       binId: "6a0eea13ee5a733b12f69599",
-      apiKey: "$2a$10$RPK1o4fWZeaBpFm4avwnKuPU9GjbXBKnEK/cnfIHk4oBEHPcu0tPW",
+      apiKey: "LIM_INN_DIN_API_KEY_HER",
       interval: 20
     };
 
-    // overskriv alltid slik at gamle verdier i nettleseren ikke brukes
-    try { localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg)); } catch(e) {}
+    // lagre config
+    try {
+      localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg));
+    } catch(e) {}
 
-  
-var binEl = document.getElementById('sp-bin-id');
-var keyEl = document.getElementById('sp-api-key');
-var intEl = document.getElementById('sp-interval');
-
-if (binEl) binEl.value = spCfg.binId;
-if (keyEl) keyEl.value = spCfg.apiKey;
-if (intEl) intEl.value = spCfg.interval;
-``
-
+    // oppdater UI
+    document.getElementById('sp-bin-id').value = spCfg.binId;
+    document.getElementById('sp-api-key').value = spCfg.apiKey;
+    document.getElementById('sp-interval').value = spCfg.interval;
 
     spSetConnected(true);
-    spSetStatus('Koblet til (felles database).', 'ok');
+    spSetStatus('Koblet til (auto).', 'ok');
 
+    // viktig
     spLastHash = '';
+
+    // hent data
     spPull();
+
+    // start polling (live oppdatering)
     spStartPolling();
+
   } catch(e) {
     console.error(e);
   }
 }
-
-
-
-
 
 function spConnect() {
   var binId    = (document.getElementById('sp-bin-id').value  || '').trim();
@@ -2290,21 +2277,14 @@ function spSetConnected(on) {
   document.getElementById('sp-label').textContent = on ? 'Delt ✓' : 'Delt lagring';
 }
 
-
 function spStartPolling() {
   spStopPolling();
   if (!spCfg) return;
-
-  // Bruk interval-feltet hvis det finnes, ellers bruk spCfg.interval (default 20)
   var intEl = document.getElementById('sp-interval');
   var sec = parseInt(intEl ? intEl.value : (spCfg.interval || 20), 10);
-
-  // Litt robusthet
   if (!sec || sec < 10) sec = 20;
-
   spTimer = setInterval(spPull, sec * 1000);
 }
-
 function spStopPolling() { if (spTimer) { clearInterval(spTimer); spTimer = null; } }
 
 function spUrl()     { return 'https://api.jsonbin.io/v3/b/' + spCfg.binId; }
@@ -2397,7 +2377,7 @@ function spMerge(remote) {
       timer: s.timer || '',
       status: s.status || 'Ikke startet',
       link: s.link || '',
-      comment: s.comment || ''
+      comment: s.comment || '', eier: s.eier || '', ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || ''
     };
   });
 
@@ -2448,16 +2428,19 @@ var _hasSaved = false;
 try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
 
 
-window.addEventListener('DOMContentLoaded', function () {
-  initTasks();
-  render();
-  spLoadConfig();
-});
+initTasks();
+render();
+spLoadConfig();
 
 
+// Hent data fra JSONBin ved oppstart (hvis delt lagring er konfigurert)
 
-
-
+setTimeout(function () {
+  if (typeof spPull === "function") {
+    console.log("Loading JSON data...");
+    spPull();
+  }
+}, 1500);
 
 // sørg for at lagring skjer etter endring
 
@@ -2470,16 +2453,11 @@ document.addEventListener("click", function(e){
 });
 
 
-
-
-
 var _pn=localStorage.getItem('projectName');
 if(_pn){
     var _pnel=document.getElementById('project-name');
     if(_pnel) _pnel.textContent=_pn;
 }
-``
-
 
 </script>
 

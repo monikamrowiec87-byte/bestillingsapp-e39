@@ -2207,12 +2207,16 @@ if (!raw) {
   document.getElementById('sp-api-key').value = spCfg.apiKey;
   document.getElementById('sp-interval').value = spCfg.interval;
 
-  spSetConnected(true);
-  spSetStatus('Koblet til (default).', 'ok');
+  s
+spSetConnected(true);
+spSetStatus('Koblet til (default).', 'ok');
 
-  spPull();          // samme som "Hent nå"
-  spStartPolling();  // fortsetter å hente med intervall
-  return;
+spLastHash = '';      // <— LEGG TIL DENNE
+spPull();             // samme som "Hent nå"
+spStartPolling();      // fortsetter å hente med intervall
+return;
+``
+
 }
 
 

@@ -2395,10 +2395,15 @@ render();
 spLoadConfig();
 
 // sørg for at lagring skjer etter endring
-document.addEventListener("change", function() {
-    scheduleAutoSave();
+
+document.addEventListener("change", scheduleAutoSave);
+document.addEventListener("input", scheduleAutoSave);
+document.addEventListener("click", function(e){
+    if(e.target.matches("select, input, textarea, button")){
+        scheduleAutoSave();
+    }
 });
-``
+
 
 
 var _pn=localStorage.getItem('projectName');

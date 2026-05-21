@@ -2411,9 +2411,12 @@ var _hasSaved = false;
 try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
 
 
-initTasks();
-render();
-spLoadConfig();
+window.addEventListener('DOMContentLoaded', function () {
+  initTasks();
+  render();
+  spLoadConfig();
+});
+
 
 
 
@@ -2430,10 +2433,7 @@ document.addEventListener("click", function(e){
 });
 
 
-document.addEventListener("change", function(){
-    scheduleAutoSave();
-    forceSaveToJSON();
-});
+
 
 
 var _pn=localStorage.getItem('projectName');

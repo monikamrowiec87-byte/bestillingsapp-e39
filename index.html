@@ -2190,41 +2190,44 @@ var spLastVer  = 0;
 var spLastHash = "";
 
 
+
 function spLoadConfig() {
   try {
+    // 🔴 HER SETTER DU FELLES DATABASE FOR ALLE
     spCfg = {
       binId: "6a0eea13ee5a733b12f69599",
-      apiKey: "LIM_INN_DIN_API_KEY_HER",
+      apiKey: "$2a$10$0M4pfIgXDAzd/FX6/njTweXVpofm4eVfqUEhJF5h7z2jal8l7NhuG",
       interval: 20
     };
 
-    // lagre config
+    // lagre lokalt (ikke nødvendig men fint)
     try {
       localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg));
     } catch(e) {}
 
-    // oppdater UI
+    // oppdater UI (skjult setup)
     document.getElementById('sp-bin-id').value = spCfg.binId;
     document.getElementById('sp-api-key').value = spCfg.apiKey;
     document.getElementById('sp-interval').value = spCfg.interval;
 
+    // koble til automatisk
     spSetConnected(true);
-    spSetStatus('Koblet til (auto).', 'ok');
+    spSetStatus('Koblet til (felles database).', 'ok');
 
-    // viktig
+    // veldig viktig
     spLastHash = '';
 
-    // hent data
+    // ✅ hent data først
     spPull();
 
-    // start polling (live oppdatering)
+    // ✅ start live sync
     spStartPolling();
 
   } catch(e) {
     console.error(e);
   }
 }
-``
+
 
 
 
@@ -2415,15 +2418,7 @@ render();
 spLoadConfig();
 
 
-// Hent data fra JSONBin ved oppstart (hvis delt lagring er konfigurert)
 
-setTimeout(function () {
-  if (typeof spPull === "function") {
-    console.log("Loading JSON data...");
-    spPull();
-  }
-}, 1500);
-``
 
 
 // sørg for at lagring skjer etter endring

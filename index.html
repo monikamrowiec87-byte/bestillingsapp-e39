@@ -2197,23 +2197,24 @@ if (raw) {
   spCfg = {
     binId: "6a0eef326877513b27ab7f0c",
     apiKey: "$2a$10$RPK1o4fWZeaBpFm4avwnKuPU9GjbXBKnEK/cnfIHk4oBEHPcu0tPW",
-    interval: 20
+    
+ interval: 20
   };
 
   try { localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg)); } catch(e) {}
+}
 
-  // Oppdater UI + start synk
-  document.getElementById('sp-bin-id').value = spCfg.binId;
-  document.getElementById('sp-api-key').value = spCfg.apiKey;
-  document.getElementById('sp-interval').value = spCfg.interval;
+document.getElementById('sp-bin-id').value = spCfg.binId;
+document.getElementById('sp-api-key').value = spCfg.apiKey;
+document.getElementById('sp-interval').value = spCfg.interval;
 
-  s
 spSetConnected(true);
-spSetStatus('Koblet til (default).', 'ok');
+spSetStatus('Koblet til.', 'ok');
 
-spLastHash = '';      // <— LEGG TIL DENNE
-spPull();             // samme som "Hent nå"
-spStartPolling();      // fortsetter å hente med intervall
+spLastHash = '';
+spPull();
+spStartPolling();
+
 return;
 ``
 

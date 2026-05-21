@@ -54,11 +54,10 @@
       --gray-bg: #2C2C2A;
     }
   }
-
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     background: var(--bg);
-    color: #ffffff;(--text);
+    color: var(--text);
     font-size: 14px;
     line-height: 1.5;
     min-height: 100vh;
@@ -66,7 +65,7 @@
 
   /* ── Header ── */
   .header {
-    background: #1e293b(--surface);
+    background: var(--surface);
     border-bottom: 0.5px solid var(--border2);
     padding: 0 24px;
     position: sticky;
@@ -83,14 +82,14 @@
   .logo {
     font-size: 13px;
     font-weight: 600;
-    color: #ffffff;(--text2);
+    color: var(--text2);
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
   .project-name {
     font-size: 16px;
     font-weight: 500;
-    color: #ffffff;(--text);
+    color: var(--text);
     flex: 1;
   }
   .header-actions { display: flex; gap: 8px; }
@@ -101,7 +100,7 @@
     border-radius: var(--radius-sm);
     border: 0.5px solid var(--border2);
     background: var(--surface);
-    color: #ffffff;(--text);
+    color: var(--text);
     cursor: pointer;
     transition: background 0.12s;
   }
@@ -112,6 +111,7 @@
     border-color: var(--accent);
   }
   .btn-primary:hover { opacity: 0.88; background: var(--accent); }
+
 
   /* ── Stats ── */
   .stats-bar {

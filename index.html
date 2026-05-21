@@ -2390,17 +2390,7 @@ var _hasSaved = false;
 try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
 if (_hasSaved) {
   // Restore saved SECTIONS_DATA first so initTasks uses correct keys
-  try {
-    var _saved = JSON.parse(localStorage.getItem('bestillingsliste_v4'));
-    if (_saved && _saved.SECTIONS_DATA) {
-      Object.keys(SECTIONS_DATA).forEach(function(k){ delete SECTIONS_DATA[k]; });
-      Object.assign(SECTIONS_DATA, _saved.SECTIONS_DATA);
-    }
-  } catch(e) {}
-  initTasksFromSaved();
-} else {
   initTasks();
-}
 loadSaved();
 render();
 spLoadConfig();

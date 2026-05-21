@@ -2396,11 +2396,15 @@ spLoadConfig();
 
 
 // Hent data fra JSONBin ved oppstart (hvis delt lagring er konfigurert)
+
 setTimeout(function () {
   if (typeof spPull === "function") {
-    spPull();   // samme som "Hent nå"
+    console.log("Loading JSON data...");
+    spPull();
   }
 }, 1500);
+``
+
 
 // sørg for at lagring skjer etter endring
 

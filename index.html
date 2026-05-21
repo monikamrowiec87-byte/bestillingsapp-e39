@@ -2203,9 +2203,16 @@ function spLoadConfig() {
     // overskriv alltid slik at gamle verdier i nettleseren ikke brukes
     try { localStorage.setItem(SP_CFG_KEY, JSON.stringify(spCfg)); } catch(e) {}
 
-    document.getElementById('sp-bin-id').value = spCfg.binId;
-    document.getElementById('sp-api-key').value = spCfg.apiKey;
-    document.getElementById('sp-interval').value = spCfg.interval;
+  
+var binEl = document.getElementById('sp-bin-id');
+var keyEl = document.getElementById('sp-api-key');
+var intEl = document.getElementById('sp-interval');
+
+if (binEl) binEl.value = spCfg.binId;
+if (keyEl) keyEl.value = spCfg.apiKey;
+if (intEl) intEl.value = spCfg.interval;
+``
+
 
     spSetConnected(true);
     spSetStatus('Koblet til (felles database).', 'ok');

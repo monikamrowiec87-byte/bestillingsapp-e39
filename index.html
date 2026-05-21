@@ -224,7 +224,7 @@
   /* ── Column headers ── */
   .col-headers {
     display: grid;
-    grid-template-columns: 32px minmax(0,1.8fr) 130px 100px 130px 130px minmax(0,1fr);
+    grid-template-columns: 32px minmax(0,1.4fr) 110px 120px 115px 85px 115px minmax(0,1.05fr) 110px minmax(0,1fr);
     gap: 8px;
     padding: 6px 12px;
     background: var(--surface);
@@ -294,7 +294,7 @@
   .task-rows { overflow: hidden; }
   .task-row {
     display: grid;
-    grid-template-columns: 32px minmax(0,1.8fr) 130px 100px 130px 130px minmax(0,1fr);
+    grid-template-columns: 32px minmax(0,1.4fr) 110px 120px 115px 85px 115px minmax(0,1.05fr) 110px minmax(0,1fr);
     gap: 8px;
     align-items: center;
     padding: 9px 12px;
@@ -996,9 +996,12 @@
     <div class="col-headers">
       <span class="ch"></span>
       <span class="ch">Post</span>
+      <span class="ch">Eier</span>
+      <span class="ch">Ansvar / grensesnitt</span>
       <span class="ch">Frist</span>
       <span class="ch">Timer (budsjett)</span>
       <span class="ch">Status</span>
+      <span class="ch">Fredagstatus</span>
       <span class="ch">Lenke til leveranse</span>
       <span class="ch">Kommentar</span>
     </div>
@@ -1096,6 +1099,7 @@
 
 
 const STATUSES = ['Ikke startet','Pågår','Til review','Ferdig','Blokkert'];
+const FREDAG_PCTS = (function(){ var a=['']; for(var i=0;i<=100;i+=5) a.push(i+'%'); return a; })();
 const STATUS_COLORS = {
   'Ikke startet': {bg:'var(--gray-bg)',  color:'var(--gray)'},
   'Pågår':        {bg:'var(--amber-bg)', color:'var(--amber)'},
@@ -1143,7 +1147,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: '', sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: ''
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
           });
         });
       });
@@ -1157,7 +1161,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: firstName, sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: ''
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
           });
         });
       });
@@ -1208,7 +1212,9 @@ function loadSaved() {
             selected: !!s.selected,
             frist: s.frist || '', timer: s.timer || '',
             status: s.status || 'Ikke startet',
-            link: s.link || '', comment: s.comment || ''
+            link: s.link || '', comment: s.comment || '',
+            ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || '',
+            eier: s.eier || ''
           });
           if (s.id >= idCounter) idCounter = s.id + 1;
         });
@@ -1222,6 +1228,9 @@ function loadSaved() {
             if (s.status   !== undefined) t.status   = s.status;
             if (s.link     !== undefined) t.link     = s.link;
             if (s.comment  !== undefined) t.comment  = s.comment;
+            if (s.ansvar       !== undefined) t.ansvar       = s.ansvar;
+            if (s.eier         !== undefined) t.eier         = s.eier;
+            if (s.fredagstatus !== undefined) t.fredagstatus = s.fredagstatus;
             if (s.selected !== undefined) t.selected = s.selected;
             if (s.name     !== undefined) t.name     = s.name;
             if (s.undersec !== undefined) t.undersec = s.undersec;
@@ -1246,7 +1255,7 @@ function saveData() {
 
 function clearAll() {
   if (!confirm('Nullstille alle valg, frister og statuser?')) return;
-  tasks.forEach(t => { t.selected=false; t.frist=''; t.timer=''; t.status='Ikke startet'; t.link=''; t.comment=''; });
+  tasks.forEach(t => { t.selected=false; t.frist=''; t.timer=''; t.status='Ikke startet'; t.link=''; t.comment=''; t.ansvar=''; t.fredagstatus=''; t.eier=''; });
   saveData(); render();
   if (activeTab==='kanban') { if(kanbanView==='tidslinje') renderTimeline(); else renderKanban(); }
   if (activeTab==='dashboard') renderDashboard();
@@ -1465,6 +1474,10 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
         +' onkeydown="if(event.key===\'Escape\')cancelEditName('+t.id+')">'+esc(t.name)+'</textarea>';
       html += '</div>';
       html += '</div>';
+      html += '<input type="text" class="comment-input eier-input" placeholder="Eier\u2026" value="'+esc(t.eier)+'"'
+        +' onchange="change('+t.id+',\'eier\',this.value)">';
+      html += '<input type="text" class="comment-input ansvar-input" placeholder="Ansvar\u2026" value="'+esc(t.ansvar)+'"'
+        +' onchange="change('+t.id+',\'ansvar\',this.value)">';
       html += '<div class="locked-field-wrap" onclick="requestLockedEdit('+t.id+',\'frist\',this)">';
       html += '<div class="locked-display" style="'+(ov?'border-color:var(--red);background:var(--red-bg)':'')+'">';
       html += t.frist ? '<span style="'+(ov?'color:var(--red)':'')+'">&#128197; '+t.frist+'</span>'
@@ -1481,6 +1494,9 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
       html += '<select class="status-sel" style="background:'+sc.bg+';color:'+sc.color+'"'
         +' onchange="this.style.background=STATUS_COLORS[this.value].bg;this.style.color=STATUS_COLORS[this.value].color;change('+t.id+',\'status\',this.value)">';
       STATUSES.forEach(function(s){ html += '<option'+(t.status===s?' selected':'')+'>'+s+'</option>'; });
+      html += '</select>';
+      html += '<select class="status-sel fredag-input" onchange="change('+t.id+',\'fredagstatus\',this.value)">';
+      FREDAG_PCTS.forEach(function(p){ html += '<option value="'+p+'"'+(t.fredagstatus===p?' selected':'')+'>'+(p===''?'\u2013':p)+'</option>'; });
       html += '</select>';
       html += '<div class="link-cell">';
       html += '<input type="text" class="link-input" placeholder="https://\u2026" value="'+esc(t.link)+'"'
@@ -1798,7 +1814,7 @@ function addTask(section, sub, undersec) {
   tasks.push({
     id: idCounter++, excelId: '',
     section: section, undersec: undersec||'', sub: sub, name: name,
-    selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: ''
+    selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
   });
   scheduleAutoSave();
   render();
@@ -2092,7 +2108,7 @@ function _doStartEditName(id){
 function commitEditName(id,val){ var v=val.trim(); if(v) change(id,'name',v); document.getElementById('nameedit-'+id).style.display='none'; var disp=document.getElementById('namedisplay-'+id); disp.style.display=''; var t=tasks.find(t=>t.id===id); var nc=disp.querySelector('.task-name-content'); if(nc) nc.innerHTML=makeName(v||t.name); scheduleAutoSave(); }
 function cancelEditName(id){ document.getElementById('nameedit-'+id).style.display='none'; document.getElementById('namedisplay-'+id).style.display=''; }
 
-function exportCSV(){ var sel=tasks.filter(t=>t.selected); if(sel.length===0){ showToast('Velg poster f\u00f8rst!'); return; } var csv='\uFEFF'; csv+='ID;Post;Seksjon;Delkapittel;Frist;Timer;Status;Lenke;Kommentar\n'; sel.forEach(function(t){ csv+='"'+t.excelId+'";"'+t.name.replace(/\n/g,' ')+'";"'+t.section+'";"'+t.sub+'";"'+t.frist+'";"'+t.timer+'";"'+t.status+'";"'+t.link+'";"'+t.comment+'"\n'; }); var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})); a.download='bestillingsliste_'+new Date().toISOString().split('T')[0]+'.csv'; a.click(); showToast('Eksporterte '+sel.length+' poster'); }
+function exportCSV(){ var sel=tasks.filter(t=>t.selected); if(sel.length===0){ showToast('Velg poster f\u00f8rst!'); return; } var csv='\uFEFF'; csv+='ID;Post;Eier;Ansvar/grensesnitt;Seksjon;Delkapittel;Frist;Timer;Status;Fredagstatus;Lenke;Kommentar\n'; sel.forEach(function(t){ csv+='"'+t.excelId+'";"'+t.name.replace(/\n/g,' ')+'";"'+(t.eier||'')+'";"'+(t.ansvar||'')+'";"'+t.section+'";"'+t.sub+'";"'+t.frist+'";"'+t.timer+'";"'+t.status+'";"'+(t.fredagstatus||'')+'";"'+t.link+'";"'+t.comment+'"\n'; }); var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})); a.download='bestillingsliste_'+new Date().toISOString().split('T')[0]+'.csv'; a.click(); showToast('Eksporterte '+sel.length+' poster'); }
 
 
 /* ════════ Beslutningslogg ════════ */

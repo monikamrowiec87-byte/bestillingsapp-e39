@@ -2394,6 +2394,14 @@ initTasks();
 render();
 spLoadConfig();
 
+
+// Hent data fra JSONBin ved oppstart (hvis delt lagring er konfigurert)
+setTimeout(function () {
+  if (typeof spPull === "function") {
+    spPull();   // samme som "Hent nå"
+  }
+}, 800);
+
 // sørg for at lagring skjer etter endring
 
 document.addEventListener("change", scheduleAutoSave);
@@ -2404,6 +2412,11 @@ document.addEventListener("click", function(e){
     }
 });
 
+
+document.addEventListener("change", function(){
+    scheduleAutoSave();
+    forceSaveToJSON();
+});
 
 
 var _pn=localStorage.getItem('projectName');

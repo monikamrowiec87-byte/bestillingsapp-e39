@@ -382,7 +382,7 @@
   /* ── Column headers ── */
   .col-headers {
     display: grid;
-    grid-template-columns: 32px minmax(0,1.4fr) 110px 120px 115px 85px 115px minmax(0,1.05fr) 110px minmax(0,1fr);
+    grid-template-columns: 32px minmax(0,1.4fr) 120px 115px 85px 115px minmax(0,1.05fr) 110px minmax(0,1fr);
     gap: 8px;
     padding: 6px 12px;
     background: var(--surface);
@@ -452,7 +452,7 @@
   .task-rows { overflow: hidden; }
   .task-row {
     display: grid;
-    grid-template-columns: 32px minmax(0,1.4fr) 110px 120px 115px 85px 115px minmax(0,1.05fr) 110px minmax(0,1fr);
+    grid-template-columns: 32px minmax(0,1.4fr) 120px 115px 85px 115px minmax(0,1.05fr) 110px minmax(0,1fr);
     gap: 8px;
     align-items: center;
     padding: 9px 12px;
@@ -1156,7 +1156,6 @@
     <div class="col-headers">
       <span class="ch"></span>
       <span class="ch">Post</span>
-      <span class="ch">Eier</span>
       <span class="ch">Ansvar / grensesnitt</span>
       <span class="ch">Frist</span>
       <span class="ch">Timer (budsjett)</span>
@@ -1761,8 +1760,6 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
         +' onkeydown="if(event.key===\'Escape\')cancelEditName('+t.id+')">'+esc(t.name)+'</textarea>';
       html += '</div>';
       html += '</div>';
-      html += '<input type="text" class="comment-input eier-input" placeholder="Eier\u2026" value="'+esc(t.eier)+'"'
-        +' onchange="change('+t.id+',\'eier\',this.value)">';
       html += '<input type="text" class="comment-input ansvar-input" placeholder="Ansvar\u2026" value="'+esc(t.ansvar)+'"'
         +' onchange="change('+t.id+',\'ansvar\',this.value)">';
       html += '<div class="locked-field-wrap" onclick="requestLockedEdit('+t.id+',\'frist\',this)">';

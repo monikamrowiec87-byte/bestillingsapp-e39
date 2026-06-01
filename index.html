@@ -1039,77 +1039,136 @@
   .undersec-edit-hint:hover{opacity:1;}
 
 
-  /* ── Beslutningslogg ── */
-  .bl-toolbar {
-    display:flex; align-items:center; gap:12px;
-    margin-bottom:14px; flex-wrap:wrap;
+  /* ── Feriekalender ── */
+  .vac-toolbar { display:flex; align-items:center; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+  .vac-stats { display:flex; gap:18px; font-size:12px; color:var(--text2); }
+  .vac-stats strong { color:var(--text); font-weight:700; }
+  .vac-add-form {
+    background:var(--surface); border:0.5px solid var(--border);
+    border-radius:var(--radius); padding:14px 16px; margin-bottom:18px;
+    display:grid; gap:10px;
+    grid-template-columns: minmax(140px,1.2fr) 150px 150px minmax(140px,1.5fr) auto;
+    align-items:end;
   }
-  .bl-stats {
-    display:flex; gap:14px; font-size:12px; color:var(--text2);
+  .vac-field { display:flex; flex-direction:column; gap:5px; }
+  .vac-field label { font-size:10px; font-weight:700; color:var(--text3); text-transform:uppercase; letter-spacing:.06em; }
+  .vac-field input {
+    font-size:13px; padding:8px 10px; border:0.5px solid var(--border2);
+    border-radius:var(--radius-sm); background:var(--bg); color:var(--text);
+    font-family:inherit; outline:none; box-sizing:border-box;
   }
-  .bl-stats strong { color:var(--text); }
-  .bl-add-btn {
-    margin-left:auto; font-size:12px; font-weight:600;
-    padding:7px 14px; border-radius:var(--radius-sm);
-    border:0.5px solid var(--accent); background:var(--accent); color:white;
-    cursor:pointer; transition:opacity .12s;
+  .vac-field input:focus { border-color:var(--accent); }
+  .vac-add-btn {
+    font-size:13px; font-weight:600; padding:0 16px; height:36px;
+    border-radius:var(--radius-sm); border:0.5px solid var(--accent);
+    background:var(--accent); color:white; cursor:pointer; transition:opacity .12s;
+    white-space:nowrap;
   }
-  .bl-add-btn:hover { opacity:.9; }
-  .bl-table-wrap {
+  .vac-add-btn:hover { opacity:.9; }
+
+  /* Tidslinje */
+  .vac-timeline-wrap {
+    background:var(--surface); border:0.5px solid var(--border);
+    border-radius:var(--radius); padding:14px 16px 16px; margin-bottom:18px;
+    overflow-x:auto;
+  }
+  .vac-timeline-controls {
+    display:flex; align-items:center; gap:8px; margin-bottom:14px;
+    font-size:12px; color:var(--text2);
+  }
+  .vac-tl-btn {
+    background:var(--surface2); border:0.5px solid var(--border2);
+    padding:5px 11px; border-radius:var(--radius-sm); cursor:pointer;
+    font-size:12px; color:var(--text); font-family:inherit;
+  }
+  .vac-tl-btn:hover { background:var(--bg); border-color:var(--text3); }
+  .vac-timeline {
+    display:grid; gap:0; min-width:700px;
+    grid-template-columns: 150px 1fr;
+  }
+  .vac-tl-name {
+    padding:6px 12px; font-size:12px; font-weight:600;
+    color:var(--text); display:flex; align-items:center;
+    border-bottom:0.5px solid var(--border); background:var(--surface);
+  }
+  .vac-tl-name.vac-tl-header { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:.06em; font-weight:700; background:var(--surface2); }
+  .vac-tl-track {
+    position:relative; height:34px; background:var(--bg);
+    border-bottom:0.5px solid var(--border);
+  }
+  .vac-tl-month-row {
+    position:relative; height:24px; background:var(--surface2);
+    border-bottom:0.5px solid var(--border2);
+  }
+  .vac-tl-month {
+    position:absolute; top:0; height:100%; display:flex; align-items:center;
+    padding:0 8px; font-weight:700; text-transform:uppercase;
+    letter-spacing:.05em; font-size:10px; color:var(--text3);
+    border-right:0.5px solid var(--border); box-sizing:border-box;
+  }
+  .vac-tl-weekend { position:absolute; top:0; bottom:0; background:rgba(0,0,0,.035); pointer-events:none; }
+  .vac-tl-today { position:absolute; top:-24px; bottom:0; width:2px; background:var(--red); z-index:5; pointer-events:none; }
+  .vac-tl-today-lbl { position:absolute; top:-22px; transform:translateX(-50%); font-size:9px; font-weight:700; color:var(--red); white-space:nowrap; z-index:6; padding:1px 5px; background:var(--surface); border-radius:3px; }
+  .vac-tl-bar {
+    position:absolute; top:6px; bottom:6px;
+    border-radius:5px; font-size:11px; font-weight:600; color:white;
+    display:flex; align-items:center; padding:0 8px; cursor:pointer;
+    box-shadow:0 1px 2px rgba(0,0,0,.12);
+    overflow:hidden; white-space:nowrap; text-overflow:ellipsis;
+    transition:filter .12s, box-shadow .12s;
+  }
+  .vac-tl-bar:hover { filter:brightness(1.08); box-shadow:0 2px 5px rgba(0,0,0,.2); }
+  .vac-tl-empty { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--text3); }
+
+  /* Liste */
+  .vac-list-wrap {
     background:var(--surface); border:0.5px solid var(--border);
     border-radius:var(--radius); overflow:auto;
   }
-  .bl-table {
-    width:100%; border-collapse:collapse; font-size:12.5px;
+  .vac-list-title {
+    padding:11px 16px; font-size:10px; font-weight:700;
+    color:var(--text3); text-transform:uppercase; letter-spacing:.06em;
+    border-bottom:0.5px solid var(--border2); background:var(--surface2);
   }
-  .bl-table thead th {
-    text-align:left; padding:10px 12px;
-    background:var(--surface2); color:var(--text3);
-    font-size:10px; font-weight:700; text-transform:uppercase;
-    letter-spacing:.06em; border-bottom:0.5px solid var(--border2);
-    white-space:nowrap;
+  .vac-table { width:100%; border-collapse:collapse; font-size:12.5px; }
+  .vac-table th {
+    text-align:left; padding:9px 12px; background:var(--surface2);
+    color:var(--text3); font-size:10px; font-weight:700;
+    text-transform:uppercase; letter-spacing:.06em;
+    border-bottom:0.5px solid var(--border2); white-space:nowrap;
   }
-  .bl-table tbody tr { border-bottom:0.5px solid var(--border); transition:background .1s; }
-  .bl-table tbody tr:hover { background:var(--bg); }
-  .bl-table tbody tr:last-child { border-bottom:none; }
-  .bl-table td { padding:8px 12px; vertical-align:top; }
-  .bl-table input, .bl-table textarea, .bl-table select {
-    width:100%; box-sizing:border-box;
-    background:transparent; border:0.5px solid transparent;
-    color:var(--text); font-size:12.5px; padding:5px 7px;
-    border-radius:4px; outline:none; font-family:inherit;
-    resize:vertical;
+  .vac-table tbody tr { border-bottom:0.5px solid var(--border); transition:background .15s; }
+  .vac-table tbody tr:hover { background:var(--bg); }
+  .vac-table tbody tr:last-child { border-bottom:none; }
+  .vac-table td { padding:7px 12px; vertical-align:middle; }
+  .vac-table input {
+    width:100%; box-sizing:border-box; background:transparent;
+    border:0.5px solid transparent; color:var(--text);
+    font-size:12.5px; padding:5px 7px; border-radius:4px;
+    outline:none; font-family:inherit;
   }
-  .bl-table input:hover, .bl-table textarea:hover, .bl-table select:hover { border-color:var(--border2); }
-  .bl-table input:focus, .bl-table textarea:focus, .bl-table select:focus { border-color:var(--accent); background:var(--bg); }
-  .bl-table textarea { min-height:32px; line-height:1.4; }
-  .bl-col-date { width:120px; }
-  .bl-col-status { width:130px; }
-  .bl-col-resp { width:140px; }
-  .bl-col-actions { width:40px; }
-  .bl-status-sel {
-    font-weight:600; font-size:11px;
-    padding:5px 8px !important;
-  }
-  .bl-status-sel.s-foreslatt { background:var(--gray-bg); color:var(--gray); }
-  .bl-status-sel.s-vurderes  { background:var(--amber-bg); color:var(--amber); }
-  .bl-status-sel.s-besluttet { background:var(--green-bg); color:var(--green); }
-  .bl-status-sel.s-forkastet { background:var(--red-bg); color:var(--red); }
-  .bl-del-btn {
+  .vac-table input:hover { border-color:var(--border2); }
+  .vac-table input:focus { border-color:var(--accent); background:var(--bg); }
+  .vac-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align:middle; flex-shrink:0; }
+  .vac-name-cell { display:flex; align-items:center; min-width:0; }
+  .vac-name-cell input { font-weight:600; }
+  .vac-days { font-size:11px; color:var(--text3); white-space:nowrap; }
+  .vac-del-btn {
     background:none; border:none; cursor:pointer;
     color:var(--text3); font-size:14px; padding:4px 6px; border-radius:4px;
     opacity:0; transition:opacity .12s;
   }
-  .bl-table tr:hover .bl-del-btn { opacity:1; }
-  .bl-del-btn:hover { color:var(--red); }
-  .bl-empty {
-    padding:50px 20px; text-align:center;
-    color:var(--text3); font-size:13px;
-  }
-  .bl-empty p { margin:0 0 16px; }
-  .bl-row-num {
-    color:var(--text3); font-size:11px; font-weight:600;
-    font-family:monospace; padding-top:11px;
+  .vac-table tr:hover .vac-del-btn { opacity:1; }
+  .vac-del-btn:hover { color:var(--red); }
+  .vac-empty { padding:40px 20px; text-align:center; color:var(--text3); font-size:13px; }
+  .vac-col-name   { width:170px; }
+  .vac-col-date   { width:140px; }
+  .vac-col-days   { width:90px; }
+  .vac-col-actions { width:40px; }
+
+  @media (max-width: 768px) {
+    .vac-add-form { grid-template-columns: 1fr 1fr; }
+    .vac-add-form .vac-add-btn { grid-column: 1 / -1; }
   }
 
 </style>
@@ -1136,7 +1195,7 @@
     <button class="tab" id="tab-kanban" onclick="switchTab('kanban')">Lappeplan</button>
     <button class="tab" id="tab-dashboard" onclick="switchTab('dashboard')">Dashboard</button>
     <button class="tab" id="tab-ukeplan" onclick="switchTab('ukeplan')">Ukeplan</button>
-    <button class="tab" id="tab-beslutning" onclick="switchTab('beslutning')">Beslutningslogg</button>
+    <button class="tab" id="tab-ferie" onclick="switchTab('ferie')">Feriekalender</button>
     
   </div>
 </header>
@@ -1195,25 +1254,54 @@
       <div class="uk-board" id="uk-board"></div>
     </div>
   </div>
-  <div id="panel-beslutning" style="display:none">
-    <div class="bl-toolbar">
-      <div class="bl-stats" id="bl-stats"></div>
-      <button class="bl-add-btn" onclick="blAddRow()">+ Ny beslutning</button>
+  <div id="panel-ferie" style="display:none">
+    <div class="vac-toolbar">
+      <div class="vac-stats" id="vac-stats"></div>
     </div>
-    <div class="bl-table-wrap">
-      <table class="bl-table">
+    <div class="vac-add-form">
+      <div class="vac-field">
+        <label>Navn</label>
+        <input type="text" id="vac-name" placeholder="Ditt navn" onkeydown="if(event.key==='Enter')vacAdd()">
+      </div>
+      <div class="vac-field">
+        <label>Fra dato</label>
+        <input type="date" id="vac-from">
+      </div>
+      <div class="vac-field">
+        <label>Til dato</label>
+        <input type="date" id="vac-to">
+      </div>
+      <div class="vac-field">
+        <label>Notat (valgfritt)</label>
+        <input type="text" id="vac-note" placeholder="Skiferie, kurs, foreldrepermisjon …" onkeydown="if(event.key==='Enter')vacAdd()">
+      </div>
+      <button class="vac-add-btn" onclick="vacAdd()">+ Legg til</button>
+    </div>
+    <div class="vac-timeline-wrap">
+      <div class="vac-timeline-controls">
+        <button class="vac-tl-btn" onclick="vacShiftStart(-14)">‹‹ 2 uker</button>
+        <button class="vac-tl-btn" onclick="vacShiftStart(-7)">‹ Uke</button>
+        <button class="vac-tl-btn" onclick="vacResetStart()">I dag</button>
+        <button class="vac-tl-btn" onclick="vacShiftStart(7)">Uke ›</button>
+        <button class="vac-tl-btn" onclick="vacShiftStart(14)">2 uker ››</button>
+        <span id="vac-tl-range" style="margin-left:auto;font-weight:600;color:var(--text)"></span>
+      </div>
+      <div id="vac-timeline"></div>
+    </div>
+    <div class="vac-list-wrap">
+      <div class="vac-list-title">Alle registrerte ferier</div>
+      <table class="vac-table">
         <thead>
           <tr>
-            <th style="width:30px;"></th>
-            <th class="bl-col-date">Dato</th>
-            <th>Beslutning</th>
-            <th>Begrunnelse</th>
-            <th class="bl-col-resp">Ansvarlig</th>
-            <th class="bl-col-status">Status</th>
-            <th class="bl-col-actions"></th>
+            <th class="vac-col-name">Navn</th>
+            <th class="vac-col-date">Fra</th>
+            <th class="vac-col-date">Til</th>
+            <th class="vac-col-days">Dager</th>
+            <th>Notat</th>
+            <th class="vac-col-actions"></th>
           </tr>
         </thead>
-        <tbody id="bl-tbody"></tbody>
+        <tbody id="vac-tbody"></tbody>
       </table>
     </div>
   </div>
@@ -1274,8 +1362,10 @@ const SECTIONS_DATA = {"0 Generell": {"": [{"id": "GEN-00-1", "name": "Pris for 
 
 let tasks = [];
 let undersecOpen = {};
-let decisions = [];
-let decIdCounter = 1;
+let vacations = [];
+let vacIdCounter = 1;
+let vacTimelineOffset = -7;
+let vacTimelineDays = 70;
 let idCounter = 0;
 let sectionOpen = {};
 let projectLinks = [
@@ -1364,10 +1454,10 @@ function loadSaved() {
       });
     }
 
-    // Restore decisions
-    if (data.decisions) {
-      decisions = data.decisions;
-      decIdCounter = data.decIdCounter || (Math.max.apply(null, [0].concat(decisions.map(function(d){return d.id||0;}))) + 1);
+    // Restore vacations
+    if (data.vacations) {
+      vacations = data.vacations;
+      vacIdCounter = data.vacIdCounter || (Math.max.apply(null, [0].concat(vacations.map(function(v){return v.id||0;}))) + 1);
     }
 
     // Restore document links
@@ -1431,7 +1521,7 @@ function loadSaved() {
 }
 
 function saveData() {
-  try { localStorage.setItem('bestillingsliste_v4', JSON.stringify({tasks, sectionOpen, undersecOpen, SECTIONS_DATA, decisions, decIdCounter, projectLinks, linkIdCounter, modelLinks, modelIdCounter})); showToast('Lagret'); }
+  try { localStorage.setItem('bestillingsliste_v4', JSON.stringify({tasks, sectionOpen, undersecOpen, SECTIONS_DATA, vacations, vacIdCounter, projectLinks, linkIdCounter, modelLinks, modelIdCounter})); showToast('Lagret'); }
   catch(e) { showToast('Kunne ikke lagre'); }
 }
 
@@ -1555,7 +1645,7 @@ function showToast(msg) {
 
 function switchTab(t) {
   activeTab = t;
-  ['liste','kanban','dashboard','ukeplan','beslutning'].forEach(function(x) {
+  ['liste','kanban','dashboard','ukeplan','ferie'].forEach(function(x) {
     var te = document.getElementById('tab-'+x);
     var pe = document.getElementById('panel-'+x);
     if(te) te.classList.toggle('active', t===x);
@@ -1564,7 +1654,7 @@ function switchTab(t) {
   if (t==='kanban') { if(kanbanView==='tidslinje') renderTimeline(); else renderKanban(); }
   if (t==='dashboard') renderDashboard();
   if (t==='ukeplan') renderUkeplan();
-  if (t==='beslutning') blRender();
+  if (t==='ferie') vacRender();
 }
 
 function toggleFilter(f) {
@@ -2395,99 +2485,247 @@ function cancelEditName(id){ document.getElementById('nameedit-'+id).style.displ
 function exportCSV(){ var sel=tasks.filter(t=>t.selected); if(sel.length===0){ showToast('Velg poster f\u00f8rst!'); return; } var csv='\uFEFF'; csv+='ID;Post;Eier;Ansvar/grensesnitt;Seksjon;Delkapittel;Frist;Timer;Status;Fredagstatus;Lenke;Kommentar\n'; sel.forEach(function(t){ csv+='"'+t.excelId+'";"'+t.name.replace(/\n/g,' ')+'";"'+(t.eier||'')+'";"'+(t.ansvar||'')+'";"'+t.section+'";"'+t.sub+'";"'+t.frist+'";"'+t.timer+'";"'+t.status+'";"'+(t.fredagstatus||'')+'";"'+t.link+'";"'+t.comment+'"\n'; }); var a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'})); a.download='bestillingsliste_'+new Date().toISOString().split('T')[0]+'.csv'; a.click(); showToast('Eksporterte '+sel.length+' poster'); }
 
 
-/* ════════ Beslutningslogg ════════ */
-var BL_STATUSES = ['Foreslått','Vurderes','Besluttet','Forkastet'];
-var BL_STATUS_CLASS = {'Foreslått':'s-foreslatt','Vurderes':'s-vurderes','Besluttet':'s-besluttet','Forkastet':'s-forkastet'};
+/* ════════ Feriekalender ════════ */
+var VAC_COLORS = ['#3a8e6e','#5b6fde','#d97757','#9d6cc5','#c9484e','#c98b4e','#4ca3b8','#a64e8d','#5a7d3e','#6f4ec9'];
+var VAC_MONTHS_NO = ['JAN','FEB','MAR','APR','MAI','JUN','JUL','AUG','SEP','OKT','NOV','DES'];
+var VAC_MONTHS_LONG = ['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
 
-function blRender() {
-  var tbody = document.getElementById('bl-tbody');
-  if (!tbody) return;
+function vacColorFor(name) {
+  if (!name) return VAC_COLORS[0];
+  var h = 0;
+  for (var i=0; i<name.length; i++) h = (h*31 + name.charCodeAt(i)) | 0;
+  return VAC_COLORS[Math.abs(h) % VAC_COLORS.length];
+}
 
-  // Stats
-  var total = decisions.length;
-  var besluttet = decisions.filter(function(d){return d.status==='Besluttet';}).length;
-  var apne = decisions.filter(function(d){return d.status==='Foreslått' || d.status==='Vurderes';}).length;
-  document.getElementById('bl-stats').innerHTML =
-    '<span><strong>' + total + '</strong> totalt</span>'
-    + '<span><strong>' + apne + '</strong> åpne</span>'
-    + '<span><strong>' + besluttet + '</strong> besluttet</span>';
+function vacParseDate(s) {
+  if (!s) return null;
+  var p = s.split('-');
+  if (p.length !== 3) return null;
+  return new Date(parseInt(p[0],10), parseInt(p[1],10)-1, parseInt(p[2],10));
+}
+function vacIsoDate(d) {
+  var y = d.getFullYear();
+  var m = String(d.getMonth()+1).padStart(2,'0');
+  var dd = String(d.getDate()).padStart(2,'0');
+  return y + '-' + m + '-' + dd;
+}
+function vacDaysBetween(a, b) {
+  var d1 = vacParseDate(a), d2 = vacParseDate(b);
+  if (!d1 || !d2) return 0;
+  return Math.floor((d2 - d1) / 86400000) + 1;
+}
+function vacFormatNo(s) {
+  var d = vacParseDate(s);
+  if (!d) return '';
+  return d.getDate() + '. ' + VAC_MONTHS_LONG[d.getMonth()] + ' ' + d.getFullYear();
+}
 
-  if (decisions.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7"><div class="bl-empty"><p>Ingen beslutninger registrert ennå.</p>'
-      + '<button class="bl-add-btn" onclick="blAddRow()">+ Legg til første beslutning</button></div></td></tr>';
-    return;
+function vacAdd() {
+  var name = document.getElementById('vac-name').value.trim();
+  var from = document.getElementById('vac-from').value;
+  var to = document.getElementById('vac-to').value;
+  var note = document.getElementById('vac-note').value.trim();
+  if (!name) { showToast('Skriv inn navn'); document.getElementById('vac-name').focus(); return; }
+  if (!from || !to) { showToast('Velg fra- og til-dato'); return; }
+  if (from > to) { showToast('Til-dato må være etter fra-dato'); return; }
+  vacations.push({ id: vacIdCounter++, name: name, from: from, to: to, note: note });
+  try { localStorage.setItem('vac_last_name', name); } catch(e) {}
+  document.getElementById('vac-from').value = '';
+  document.getElementById('vac-to').value = '';
+  document.getElementById('vac-note').value = '';
+  scheduleAutoSave();
+  vacRender();
+  showToast('Ferie lagt til');
+}
+
+function vacChange(id, field, value) {
+  var v = vacations.find(function(x){return x.id === id;});
+  if (!v) return;
+  if ((field === 'from' || field === 'to') && value) {
+    var f = field === 'from' ? value : v.from;
+    var t = field === 'to' ? value : v.to;
+    if (f && t && f > t) { showToast('Til-dato må være etter fra-dato'); vacRender(); return; }
+  }
+  v[field] = value;
+  scheduleAutoSave();
+  vacRender();
+}
+
+function vacDelete(id) {
+  var v = vacations.find(function(x){return x.id === id;});
+  if (!v) return;
+  if (!confirm('Slette ' + (v.name || 'ferien') + ' (' + vacFormatNo(v.from) + ' – ' + vacFormatNo(v.to) + ')?')) return;
+  vacations = vacations.filter(function(x){return x.id !== id;});
+  scheduleAutoSave();
+  vacRender();
+}
+
+function vacShiftStart(days) { vacTimelineOffset += days; vacRender(); }
+function vacResetStart() { vacTimelineOffset = -7; vacRender(); }
+
+function vacRenderStats() {
+  var el = document.getElementById('vac-stats');
+  if (!el) return;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var todayStr = vacIsoDate(today);
+  var active = vacations.filter(function(v){ return v.from && v.to && v.from <= todayStr && v.to >= todayStr; }).length;
+  var upcoming = vacations.filter(function(v){ return v.from && v.from > todayStr; }).length;
+  var people = {};
+  vacations.forEach(function(v){ if(v.name) people[v.name]=1; });
+  el.innerHTML = '<span><strong>' + Object.keys(people).length + '</strong> personer</span>'
+    + '<span><strong>' + active + '</strong> på ferie nå</span>'
+    + '<span><strong>' + upcoming + '</strong> kommende</span>';
+}
+
+function vacRenderTimeline() {
+  var el = document.getElementById('vac-timeline');
+  if (!el) return;
+  var today = new Date(); today.setHours(0,0,0,0);
+  var start = new Date(today);
+  start.setDate(start.getDate() + vacTimelineOffset);
+  var totalDays = vacTimelineDays;
+  var dayPct = 100 / totalDays;
+  var endD = new Date(start);
+  endD.setDate(endD.getDate() + totalDays - 1);
+
+  var rangeEl = document.getElementById('vac-tl-range');
+  if (rangeEl) rangeEl.textContent = vacFormatNo(vacIsoDate(start)) + ' – ' + vacFormatNo(vacIsoDate(endD));
+
+  // Group entries by person
+  var names = [];
+  var byName = {};
+  vacations.forEach(function(v) {
+    var n = v.name || '(uten navn)';
+    if (!byName[n]) { byName[n] = []; names.push(n); }
+    byName[n].push(v);
+  });
+  names.sort(function(a,b){ return a.localeCompare(b,'no'); });
+
+  // Month headers
+  var monthsHtml = '';
+  var cursor = new Date(start);
+  while (cursor <= endD) {
+    var monthStart = (cursor.getDate() === 1) ? new Date(cursor) : new Date(cursor.getFullYear(), cursor.getMonth(), 1);
+    if (monthStart < start) monthStart = new Date(start);
+    var monthEnd = new Date(cursor.getFullYear(), cursor.getMonth()+1, 0);
+    if (monthEnd > endD) monthEnd = new Date(endD);
+    var offsetD = Math.floor((monthStart - start) / 86400000);
+    var lenD = Math.floor((monthEnd - monthStart) / 86400000) + 1;
+    var label = VAC_MONTHS_NO[monthStart.getMonth()];
+    if (monthStart.getMonth() === 0 || offsetD === 0) label += ' ' + monthStart.getFullYear();
+    monthsHtml += '<div class="vac-tl-month" style="left:' + (offsetD * dayPct) + '%;width:' + (lenD * dayPct) + '%">' + label + '</div>';
+    cursor = new Date(monthEnd);
+    cursor.setDate(cursor.getDate() + 1);
   }
 
-  // Sort by date descending (newest first)
-  var sorted = decisions.slice().sort(function(a,b){
-    return (b.date || '').localeCompare(a.date || '');
-  });
+  // Weekend shading
+  var weekendHtml = '';
+  for (var i = 0; i < totalDays; i++) {
+    var d = new Date(start);
+    d.setDate(d.getDate() + i);
+    var dow = d.getDay();
+    if (dow === 0 || dow === 6) {
+      weekendHtml += '<div class="vac-tl-weekend" style="left:' + (i * dayPct) + '%;width:' + dayPct + '%"></div>';
+    }
+  }
 
+  // Today line
+  var todayOffset = Math.floor((today - start) / 86400000);
+  var todayHtml = '';
+  if (todayOffset >= 0 && todayOffset < totalDays) {
+    var pct = (todayOffset + 0.5) * dayPct;
+    todayHtml = '<div class="vac-tl-today" style="left:' + pct + '%"></div>';
+  }
+  var todayLblHtml = (todayOffset >= 0 && todayOffset < totalDays)
+    ? '<div class="vac-tl-today-lbl" style="left:' + ((todayOffset + 0.5) * dayPct) + '%">I dag</div>' : '';
+
+  // Build HTML
   var html = '';
-  sorted.forEach(function(d, idx) {
-    var num = decisions.length - idx;
-    var statusClass = BL_STATUS_CLASS[d.status] || 's-foreslatt';
-    html += '<tr id="bl-row-' + d.id + '">';
-    html += '<td class="bl-row-num">#' + d.id + '</td>';
-    html += '<td><input type="date" value="' + (d.date || '') + '"'
-      + ' onchange="blChange(' + d.id + ',\'date\',this.value)"></td>';
-    html += '<td><textarea rows="2" placeholder="Hva ble besluttet…"'
-      + ' onchange="blChange(' + d.id + ',\'beslutning\',this.value)">'
-      + esc(d.beslutning || '') + '</textarea></td>';
-    html += '<td><textarea rows="2" placeholder="Hvorfor / bakgrunn…"'
-      + ' onchange="blChange(' + d.id + ',\'begrunnelse\',this.value)">'
-      + esc(d.begrunnelse || '') + '</textarea></td>';
-    html += '<td><input type="text" placeholder="Navn…" value="' + esc(d.ansvarlig || '') + '"'
-      + ' onchange="blChange(' + d.id + ',\'ansvarlig\',this.value)"></td>';
-    html += '<td><select class="bl-status-sel ' + statusClass + '"'
-      + ' onchange="blChange(' + d.id + ',\'status\',this.value);blRender()">';
-    BL_STATUSES.forEach(function(s) {
-      html += '<option' + (d.status === s ? ' selected' : '') + '>' + s + '</option>';
+  html += '<div class="vac-tl-name vac-tl-header">Person</div>';
+  html += '<div class="vac-tl-month-row">' + monthsHtml + todayLblHtml + '</div>';
+
+  if (names.length === 0) {
+    html += '<div class="vac-tl-name" style="color:var(--text3);font-weight:400">–</div>';
+    html += '<div class="vac-tl-track">' + weekendHtml + todayHtml
+      + '<div class="vac-tl-empty">Ingen ferier registrert ennå – bruk skjemaet over for å legge til</div></div>';
+  } else {
+    names.forEach(function(n) {
+      var color = vacColorFor(n);
+      var barsHtml = '';
+      byName[n].forEach(function(v) {
+        var vStart = vacParseDate(v.from);
+        var vEnd = vacParseDate(v.to);
+        if (!vStart || !vEnd) return;
+        if (vEnd < start || vStart > endD) return;
+        var s0 = vStart < start ? start : vStart;
+        var e0 = vEnd > endD ? endD : vEnd;
+        var leftD = Math.floor((s0 - start) / 86400000);
+        var widthD = Math.floor((e0 - s0) / 86400000) + 1;
+        var totalLen = vacDaysBetween(v.from, v.to);
+        var lbl = v.note ? v.note : (totalLen + 'd');
+        var title = n + ': ' + vacFormatNo(v.from) + ' – ' + vacFormatNo(v.to) + ' (' + totalLen + ' dager)' + (v.note ? ' · ' + v.note : '');
+        barsHtml += '<div class="vac-tl-bar" style="left:' + (leftD * dayPct) + '%;width:' + (widthD * dayPct) + '%;background:' + color + '"'
+          + ' title="' + esc(title) + '" onclick="vacFocusRow(' + v.id + ')">' + esc(lbl) + '</div>';
+      });
+      html += '<div class="vac-tl-name"><span class="vac-dot" style="background:' + color + '"></span><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(n) + '</span></div>';
+      html += '<div class="vac-tl-track">' + weekendHtml + todayHtml + barsHtml + '</div>';
     });
-    html += '</select></td>';
-    html += '<td><button class="bl-del-btn" onclick="blDelete(' + d.id + ')" title="Slett">×</button></td>';
+  }
+
+  el.className = 'vac-timeline';
+  el.innerHTML = html;
+}
+
+function vacFocusRow(id) {
+  var row = document.getElementById('vac-row-' + id);
+  if (!row) return;
+  row.scrollIntoView({behavior:'smooth', block:'center'});
+  row.style.transition = 'background .3s';
+  row.style.background = 'var(--blue-bg)';
+  setTimeout(function(){ row.style.background = ''; }, 1500);
+}
+
+function vacRenderList() {
+  var tbody = document.getElementById('vac-tbody');
+  if (!tbody) return;
+  if (vacations.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="vac-empty">Ingen ferier registrert ennå. Bruk skjemaet over for å legge til.</div></td></tr>';
+    return;
+  }
+  var sorted = vacations.slice().sort(function(a,b){ return (a.from||'').localeCompare(b.from||''); });
+  var todayStr = vacIsoDate(new Date());
+  var html = '';
+  sorted.forEach(function(v) {
+    var color = vacColorFor(v.name);
+    var days = vacDaysBetween(v.from, v.to);
+    var isPast = v.to && v.to < todayStr;
+    var rowStyle = isPast ? ' style="opacity:.55"' : '';
+    html += '<tr id="vac-row-' + v.id + '"' + rowStyle + '>';
+    html += '<td><div class="vac-name-cell"><span class="vac-dot" style="background:' + color + '"></span>'
+      + '<input type="text" value="' + esc(v.name||'') + '" placeholder="Navn" onchange="vacChange(' + v.id + ',\'name\',this.value)"></div></td>';
+    html += '<td><input type="date" value="' + (v.from||'') + '" onchange="vacChange(' + v.id + ',\'from\',this.value)"></td>';
+    html += '<td><input type="date" value="' + (v.to||'') + '" onchange="vacChange(' + v.id + ',\'to\',this.value)"></td>';
+    html += '<td class="vac-days">' + (days > 0 ? days + ' dager' : '–') + '</td>';
+    html += '<td><input type="text" value="' + esc(v.note||'') + '" placeholder="–" onchange="vacChange(' + v.id + ',\'note\',this.value)"></td>';
+    html += '<td><button class="vac-del-btn" onclick="vacDelete(' + v.id + ')" title="Slett">×</button></td>';
     html += '</tr>';
   });
   tbody.innerHTML = html;
 }
 
-function blAddRow() {
-  var today = new Date().toISOString().split('T')[0];
-  decisions.push({
-    id: decIdCounter++,
-    date: today,
-    beslutning: '',
-    begrunnelse: '',
-    ansvarlig: '',
-    status: 'Foreslått'
-  });
-  scheduleAutoSave();
-  blRender();
-  // Focus the new row's beslutning field
-  setTimeout(function(){
-    var row = document.getElementById('bl-row-' + (decIdCounter-1));
-    if (row) {
-      var ta = row.querySelectorAll('textarea')[0];
-      if (ta) ta.focus();
-    }
-  }, 50);
-}
-
-function blChange(id, field, value) {
-  var d = decisions.find(function(d){return d.id === id;});
-  if (d) d[field] = value;
-  scheduleAutoSave();
-}
-
-function blDelete(id) {
-  if (!confirm('Slette denne beslutningen?')) return;
-  decisions = decisions.filter(function(d){return d.id !== id;});
-  scheduleAutoSave();
-  blRender();
+function vacRender() {
+  vacRenderStats();
+  vacRenderTimeline();
+  vacRenderList();
+  // Prefill name field with last-used name on this device
+  var nameField = document.getElementById('vac-name');
+  if (nameField && !nameField.value) {
+    try { var last = localStorage.getItem('vac_last_name'); if (last) nameField.value = last; } catch(e) {}
+  }
 }
 
 var autoSaveTimer;
-function scheduleAutoSave(){ clearTimeout(autoSaveTimer); autoSaveTimer=setTimeout(function(){ try{ localStorage.setItem('bestillingsliste_v4',JSON.stringify({tasks:tasks,sectionOpen:sectionOpen,undersecOpen:undersecOpen,SECTIONS_DATA:SECTIONS_DATA,decisions:decisions,decIdCounter:decIdCounter,projectLinks:projectLinks,linkIdCounter:linkIdCounter,modelLinks:modelLinks,modelIdCounter:modelIdCounter})); }catch(e){} },1200); }
+function scheduleAutoSave(){ clearTimeout(autoSaveTimer); autoSaveTimer=setTimeout(function(){ try{ localStorage.setItem('bestillingsliste_v4',JSON.stringify({tasks:tasks,sectionOpen:sectionOpen,undersecOpen:undersecOpen,SECTIONS_DATA:SECTIONS_DATA,vacations:vacations,vacIdCounter:vacIdCounter,projectLinks:projectLinks,linkIdCounter:linkIdCounter,modelLinks:modelLinks,modelIdCounter:modelIdCounter})); }catch(e){} },1200); }
 var _change=change;
 window.change=function(id,field,val){ _change(id,field,val); scheduleAutoSave(); };
 var _toggleSelect=toggleSelect;
@@ -2601,7 +2839,7 @@ async function spPush() {
     var ts = Date.now();
     var payload = {
       tasks: tasks, sectionOpen: sectionOpen, undersecOpen: undersecOpen,
-      SECTIONS_DATA: SECTIONS_DATA, decisions: decisions, decIdCounter: decIdCounter,
+      SECTIONS_DATA: SECTIONS_DATA, vacations: vacations, vacIdCounter: vacIdCounter,
       projectLinks: projectLinks, linkIdCounter: linkIdCounter,
       modelLinks: modelLinks, modelIdCounter: modelIdCounter,
       ts: ts
@@ -2618,7 +2856,7 @@ async function spPush() {
     var data = await r.json();
     spLastVer = (data.metadata || {}).version || spLastVer + 1;
     // Update hash so next pull doesn't re-merge our own data
-    spLastHash = ts + '_' + tasks.length + '_' + decisions.length;
+    spLastHash = ts + '_' + tasks.length + '_' + vacations.length;
     spSetDot('ok');
     spSetStatus('✓ Lastet opp ' + spTime(), 'ok');
   } catch(e) {
@@ -2646,8 +2884,8 @@ async function spPull() {
     // Compare by timestamp + content size (more reliable than version)
     var remoteTs = data.record.ts || 0;
     var remoteTaskCount = (data.record.tasks || []).length;
-    var remoteDecCount  = (data.record.decisions || []).length;
-    var remoteSig = remoteTs + '_' + remoteTaskCount + '_' + remoteDecCount;
+    var remoteVacCount  = (data.record.vacations || []).length;
+    var remoteSig = remoteTs + '_' + remoteTaskCount + '_' + remoteVacCount;
     if (remoteSig !== spLastHash) {
       spLastHash = remoteSig;
       spMerge(data.record);
@@ -2693,9 +2931,9 @@ function spMerge(remote) {
   // Restore other state
   if (remote.sectionOpen)  Object.assign(sectionOpen, remote.sectionOpen);
   if (remote.undersecOpen) Object.assign(undersecOpen, remote.undersecOpen);
-  if (remote.decisions) {
-    decisions = remote.decisions;
-    decIdCounter = remote.decIdCounter || (Math.max.apply(null, [0].concat(decisions.map(function(d){return d.id||0;}))) + 1);
+  if (remote.vacations) {
+    vacations = remote.vacations;
+    vacIdCounter = remote.vacIdCounter || (Math.max.apply(null, [0].concat(vacations.map(function(v){return v.id||0;}))) + 1);
   }
 
   // Restore document links
@@ -2714,7 +2952,7 @@ function spMerge(remote) {
   try {
     localStorage.setItem('bestillingsliste_v4', JSON.stringify({
       tasks: tasks, sectionOpen: sectionOpen, undersecOpen: undersecOpen,
-      SECTIONS_DATA: SECTIONS_DATA, decisions: decisions, decIdCounter: decIdCounter,
+      SECTIONS_DATA: SECTIONS_DATA, vacations: vacations, vacIdCounter: vacIdCounter,
       projectLinks: projectLinks, linkIdCounter: linkIdCounter,
       modelLinks: modelLinks, modelIdCounter: modelIdCounter
     }));
@@ -2722,7 +2960,7 @@ function spMerge(remote) {
   render();
   renderLinks();
   renderModelLinks();
-  if (activeTab === 'beslutning') blRender();
+  if (activeTab === 'ferie') vacRender();
   if (activeTab === 'dashboard') renderDashboard();
   if (activeTab === 'ukeplan') renderUkeplan();
 }

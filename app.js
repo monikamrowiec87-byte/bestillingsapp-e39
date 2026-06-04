@@ -1391,12 +1391,14 @@ window.toggleSelect=function(id){ _toggleSelect(id); scheduleAutoSave(); };
 
 
 /* ════════ JSONBin Sync ════════ */
-var SP_CFG_KEY     = 'bl_jb_cfg_v1';
-var SP_API_KEY_KEY = 'bl_jb_api_v1';
-var spCfg          = null;
-var spTimer        = null;
-var spLastVer      = 0;
-var spLastHash     = "";
+var SP_CFG_KEY         = 'bl_jb_cfg_v1';
+var SP_API_KEY_KEY     = 'bl_jb_api_v1';
+var SP_API_KEY_TS_KEY  = 'bl_jb_api_ts_v1';
+var SP_API_KEY_TTL_MS  = 16 * 60 * 60 * 1000;  // 16 hours
+var spCfg              = null;
+var spTimer            = null;
+var spLastVer          = 0;
+var spLastHash         = "";
 
 
 
@@ -1415,8 +1417,21 @@ function spLoadConfig() {
         if (saved.binId) spCfg.binId = saved.binId;
         if (saved.interval) spCfg.interval = saved.interval;
       }
-      var savedKey = sessionStorage.getItem(SP_API_KEY_KEY);
-      if (savedKey) spCfg.apiKey = savedKey;
+      // Try to load API key from localStorage with TTL check
+      var savedKey = localStorage.getItem(SP_API_KEY_KEY);
+      var savedTs = localStorage.getItem(SP_API_KEY_TS_KEY);
+      if (savedKey && savedTs) {
+        var now = Date.now();
+        var age = now - parseInt(savedTs);
+        if (age < SP_API_KEY_TTL_MS) {
+          // TTL still valid
+          spCfg.apiKey = savedKey;
+        } else {
+          // TTL expired, clear stored key
+          localStorage.removeItem(SP_API_KEY_KEY);
+          localStorage.removeItem(SP_API_KEY_TS_KEY);
+        }
+      }
     } catch(e) {
       // ignore invalid config
     }
@@ -1457,7 +1472,7 @@ function spConnect() {
   if (!apiKey) { spSetStatus('Fyll inn JSONBin API Key.', 'err'); return; }
   spCfg = { binId: binId, apiKey: apiKey, interval: interval };
   try { localStorage.setItem(SP_CFG_KEY, JSON.stringify({binId: binId, interval: interval})); } catch(e) {}
-  try { sessionStorage.setItem(SP_API_KEY_KEY, apiKey); } catch(e) {}
+  try { localStorage.setItem(SP_API_KEY_KEY, apiKey); localStorage.setItem(SP_API_KEY_TS_KEY, Date.now().toString()); } catch(e) {}
   spSetConnected(true);
   spSetStatus('Kobler til…', '');
   spPull();
@@ -1468,7 +1483,7 @@ function spDisconnect() {
   spStopPolling();
   spCfg = null;
   try { localStorage.removeItem(SP_CFG_KEY); } catch(e) {}
-  try { sessionStorage.removeItem(SP_API_KEY_KEY); } catch(e) {}
+  try { localStorage.removeItem(SP_API_KEY_KEY); localStorage.removeItem(SP_API_KEY_TS_KEY); } catch(e) {}
   spSetConnected(false);
   spSetDot('');
   spSetStatus('Frakoblet. Fyll inn ny konfigurasjon for å koble til igjen.', '');

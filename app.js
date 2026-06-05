@@ -1744,8 +1744,28 @@ var _hasSaved = false;
 try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
 
 
+var DATA_VERSION = 'v5-bruer-2026';
 window.addEventListener('DOMContentLoaded', function () {
+  // If localStorage was saved under a different data version, clear tasks+sections
+  // so the new SECTIONS_DATA (with bruer-bestillinger) is used instead.
+  try {
+    var savedRaw = localStorage.getItem('bestillingsliste_v4');
+    if (savedRaw) {
+      var savedObj = JSON.parse(savedRaw);
+      if (savedObj._dataVersion !== DATA_VERSION) {
+        // Keep user-editable fields (frist, timer, status, ansvar, comment, link, fredagstatus)
+        // but discard old task list and section structure so new ones load fresh.
+        delete savedObj.tasks;
+        delete savedObj.SECTIONS_DATA;
+        delete savedObj.undersecOpen;
+        savedObj._dataVersion = DATA_VERSION;
+        localStorage.setItem('bestillingsliste_v4', JSON.stringify(savedObj));
+      }
+    }
+  } catch(e) {}
+
   initTasks();
+  loadSaved();
   render();
   renderLinks();
   renderModelLinks();

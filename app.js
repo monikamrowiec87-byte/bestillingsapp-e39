@@ -574,13 +574,9 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
       html += '<div class="task-name-cell">';
       html += '<div class="name-display-wrap" id="namedisplay-'+t.id+'">';
       html += '<div class="task-name-content">'+makeName(t.name)+'</div>';
-      html += '<div class="task-row-actions">';
-      html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger">&#9998;</button>';
-      html += '<button class="move-btn" onclick="moveTask('+t.id+',-1)" title="Flytt opp">&#9650;</button>';
-      html += '<button class="move-btn" onclick="moveTask('+t.id+',1)" title="Flytt ned">&#9660;</button>';
-      html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
+      html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger (PIN kreves)">&#9998;</button>';
+      if(!t.excelId) html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
       html += '<button class="irrelevant-btn'+(t.irrelevant?' is-irrelevant':'')+'" onclick="toggleIrrelevant('+t.id+')" title="'+(t.irrelevant?'Merk som relevant':'Merk som ikke relevant')+'">'+(t.irrelevant?'&#10003; Ikke relevant':'&#8416; Ikke relevant')+'</button>';
-      html += '</div>';
       html += '</div>';
       html += '<div class="name-edit-wrap" id="nameedit-'+t.id+'">';
       html += '<textarea class="name-edit-input" rows="3"'
@@ -916,34 +912,9 @@ function makeNote(t, c, forceOverdue, today) {
 
 
 function deleteTask(id) {
-  if (!confirm('Slett denne posten?')) return;
   tasks = tasks.filter(function(t){ return t.id !== id; });
   scheduleAutoSave();
   render();
-}
-
-function moveTask(id, dir) {
-  // Find the task and its neighbours within the same section+undersec+sub group
-  var t = tasks.find(function(t){ return t.id===id; });
-  if (!t) return;
-  var group = tasks.filter(function(x){
-    return x.section===t.section && x.undersec===t.undersec && x.sub===t.sub;
-  });
-  var idx = group.indexOf(t);
-  var newIdx = idx + dir;
-  if (newIdx < 0 || newIdx >= group.length) return;
-  // Swap in the main tasks array
-  var ti = tasks.indexOf(t);
-  var tn = tasks.indexOf(group[newIdx]);
-  tasks[ti] = group[newIdx];
-  tasks[tn] = t;
-  scheduleAutoSave();
-  render();
-  // Scroll the moved row back into view
-  setTimeout(function(){
-    var row = document.getElementById('row-'+id);
-    if (row) row.scrollIntoView({block:'nearest'});
-  }, 30);
 }
 
 function addTask(section, sub, undersec) {
@@ -1152,7 +1123,12 @@ function getPin(){ try{ return localStorage.getItem(PIN_KEY)||null; }catch(e){ r
 function savePin(p){ try{ localStorage.setItem(PIN_KEY,p); }catch(e){} }
 
 function requestLockedEdit(id,field,wrapEl){
-  openInlineEditor(id,field,wrapEl);
+  var t=tasks.find(t=>t.id===id); if(!t) return;
+  var hasVal=field==='frist'?!!t.frist:!!t.timer;
+  if(!hasVal){ openInlineEditor(id,field,wrapEl); return; }
+  var stored=getPin();
+  if(!stored) openPinModal('set-first',null,id,field,wrapEl);
+  else openPinModal('verify',stored,id,field,wrapEl);
 }
 
 function openInlineEditor(id,field,wrapEl){
@@ -1227,7 +1203,10 @@ function changePinFlow(){
 }
 
 function startEditName(id){
-  _doStartEditName(id);
+  var stored=getPin();
+  if(stored) openPinModal('verify',stored,null,null,null);
+  else openPinModal('set-first',null,null,null,null);
+  pinCallback=function(){ _doStartEditName(id); };
 }
 function _doStartEditName(id){
   document.getElementById('namedisplay-'+id).style.display='none';

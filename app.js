@@ -94,12 +94,6 @@ function loadSaved() {
     if (!saved) return;
     var data = JSON.parse(saved);
 
-    // Restore section structure (handles renames)
-    if (data.SECTIONS_DATA) {
-      Object.keys(SECTIONS_DATA).forEach(function(k){ delete SECTIONS_DATA[k]; });
-      Object.assign(SECTIONS_DATA, data.SECTIONS_DATA);
-    }
-
     // Restore undersec open/closed state
     if (data.undersecOpen) Object.assign(undersecOpen, data.undersecOpen);
 
@@ -1715,15 +1709,10 @@ if (_pn) {
 }
 
 function _appInit() {
-  var _hasSaved = false;
-  try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
-  if (_hasSaved) {
-    initTasksFromSaved();
-    loadSaved();
-  }
-  if (tasks.length === 0) {
-    initTasks();
-  }
+  // Always populate from SECTIONS_DATA first
+  initTasks();
+  // Then merge any saved user data (statuses, frister, kommentarer etc.) on top
+  loadSaved();
   render();
   renderLinks();
   renderModelLinks();

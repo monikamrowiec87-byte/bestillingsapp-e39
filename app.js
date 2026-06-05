@@ -101,7 +101,7 @@ let modelLinks = [
 ];
 let modelIdCounter = 2;
 let linkEditGroup = 'doc';
-let filters = {valgte:false, frist:false, pågår:false};
+let filters = {valgte:false, frist:false, pågår:false, irrelevant:false};
 let activeTab = 'liste';
 let kanbanView = 'tidslinje';
 
@@ -129,7 +129,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: '', sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: '', irrelevant: false
           });
         });
       });
@@ -143,7 +143,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: firstName, sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: '', irrelevant: false
           });
         });
       });
@@ -208,7 +208,8 @@ function loadSaved() {
             status: s.status || 'Ikke startet',
             link: s.link || '', comment: s.comment || '',
             ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || '',
-            eier: s.eier || ''
+            eier: s.eier || '',
+            irrelevant: !!s.irrelevant
           });
           if (s.id >= idCounter) idCounter = s.id + 1;
         });
@@ -228,6 +229,7 @@ function loadSaved() {
             if (s.selected !== undefined) t.selected = s.selected;
             if (s.name     !== undefined) t.name     = s.name;
             if (s.undersec !== undefined) t.undersec = s.undersec;
+            if (s.irrelevant !== undefined) t.irrelevant = s.irrelevant;
           }
         });
         // Restore custom-added tasks (excelId === '')
@@ -404,6 +406,14 @@ function toggleSelect(id) {
   render();
 }
 
+function toggleIrrelevant(id) {
+  const t = tasks.find(t=>t.id===id);
+  if (!t) return;
+  t.irrelevant = !t.irrelevant;
+  scheduleAutoSave();
+  render();
+}
+
 function getToday() { return new Date().toISOString().split('T')[0]; }
 
 
@@ -523,6 +533,7 @@ function _filterTasks(list, q, today) {
     if(filters.valgte && !t.selected) return false;
     if(filters.frist && !(t.frist&&t.frist<today&&t.status!=='Ferdig')) return false;
     if(filters['pågår'] && t.status!=='Pågår') return false;
+    if(filters.irrelevant && t.irrelevant) return false;
     return true;
   });
 }
@@ -558,13 +569,18 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
     si.forEach(function(t){
       var ov=t.frist&&t.frist<today&&t.status!=='Ferdig';
       var sc=STATUS_COLORS[t.status]||{bg:'',color:''};
-      html += '<div class="task-row'+(t.selected?' selected':'')+'" id="row-'+t.id+'">';
+      html += '<div class="task-row'+(t.selected?' selected':'')+(t.irrelevant?' task-irrelevant':'')+'" id="row-'+t.id+'">';
       html += '<input type="checkbox" class="cb" '+(t.selected?'checked':'')+' onchange="toggleSelect('+t.id+')">';
       html += '<div class="task-name-cell">';
       html += '<div class="name-display-wrap" id="namedisplay-'+t.id+'">';
       html += '<div class="task-name-content">'+makeName(t.name)+'</div>';
-      html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger (PIN kreves)">&#9998;</button>';
-      if(!t.excelId) html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
+      html += '<div class="task-row-actions">';
+      html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger">&#9998;</button>';
+      html += '<button class="move-btn" onclick="moveTask('+t.id+',-1)" title="Flytt opp">&#9650;</button>';
+      html += '<button class="move-btn" onclick="moveTask('+t.id+',1)" title="Flytt ned">&#9660;</button>';
+      html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
+      html += '<button class="irrelevant-btn'+(t.irrelevant?' is-irrelevant':'')+'" onclick="toggleIrrelevant('+t.id+')" title="'+(t.irrelevant?'Merk som relevant':'Merk som ikke relevant')+'">'+(t.irrelevant?'&#10003; Ikke relevant':'&#8416; Ikke relevant')+'</button>';
+      html += '</div>';
       html += '</div>';
       html += '<div class="name-edit-wrap" id="nameedit-'+t.id+'">';
       html += '<textarea class="name-edit-input" rows="3"'
@@ -900,9 +916,34 @@ function makeNote(t, c, forceOverdue, today) {
 
 
 function deleteTask(id) {
+  if (!confirm('Slett denne posten?')) return;
   tasks = tasks.filter(function(t){ return t.id !== id; });
   scheduleAutoSave();
   render();
+}
+
+function moveTask(id, dir) {
+  // Find the task and its neighbours within the same section+undersec+sub group
+  var t = tasks.find(function(t){ return t.id===id; });
+  if (!t) return;
+  var group = tasks.filter(function(x){
+    return x.section===t.section && x.undersec===t.undersec && x.sub===t.sub;
+  });
+  var idx = group.indexOf(t);
+  var newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= group.length) return;
+  // Swap in the main tasks array
+  var ti = tasks.indexOf(t);
+  var tn = tasks.indexOf(group[newIdx]);
+  tasks[ti] = group[newIdx];
+  tasks[tn] = t;
+  scheduleAutoSave();
+  render();
+  // Scroll the moved row back into view
+  setTimeout(function(){
+    var row = document.getElementById('row-'+id);
+    if (row) row.scrollIntoView({block:'nearest'});
+  }, 30);
 }
 
 function addTask(section, sub, undersec) {
@@ -1111,12 +1152,7 @@ function getPin(){ try{ return localStorage.getItem(PIN_KEY)||null; }catch(e){ r
 function savePin(p){ try{ localStorage.setItem(PIN_KEY,p); }catch(e){} }
 
 function requestLockedEdit(id,field,wrapEl){
-  var t=tasks.find(t=>t.id===id); if(!t) return;
-  var hasVal=field==='frist'?!!t.frist:!!t.timer;
-  if(!hasVal){ openInlineEditor(id,field,wrapEl); return; }
-  var stored=getPin();
-  if(!stored) openPinModal('set-first',null,id,field,wrapEl);
-  else openPinModal('verify',stored,id,field,wrapEl);
+  openInlineEditor(id,field,wrapEl);
 }
 
 function openInlineEditor(id,field,wrapEl){
@@ -1191,10 +1227,7 @@ function changePinFlow(){
 }
 
 function startEditName(id){
-  var stored=getPin();
-  if(stored) openPinModal('verify',stored,null,null,null);
-  else openPinModal('set-first',null,null,null,null);
-  pinCallback=function(){ _doStartEditName(id); };
+  _doStartEditName(id);
 }
 function _doStartEditName(id){
   document.getElementById('namedisplay-'+id).style.display='none';
@@ -1739,43 +1772,34 @@ scheduleAutoSave = function() {
 };
 window.scheduleAutoSave = scheduleAutoSave;
 
-// If saved data exists, load it first (skip auto-creating default underkapitler)
-var _hasSaved = false;
-try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
-
+var _pn = localStorage.getItem('projectName');
+if (_pn) {
+  var _pnel = document.getElementById('project-name');
+  if (_pnel) _pnel.textContent = _pn;
+}
 
 window.addEventListener('DOMContentLoaded', function () {
-  initTasks();
+  var _hasSaved = false;
+  try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
+  if (_hasSaved) {
+    initTasksFromSaved();
+    loadSaved();
+  }
+  // If still empty (corrupt save or first visit), populate from SECTIONS_DATA
+  if (tasks.length === 0) {
+    initTasks();
+  }
   render();
   renderLinks();
   renderModelLinks();
   spLoadConfig();
 });
 
-
-
-
-
-
-// sørg for at lagring skjer etter endring
-
+// Sørg for at lagring skjer etter endring
 document.addEventListener("change", scheduleAutoSave);
 document.addEventListener("input", scheduleAutoSave);
 document.addEventListener("click", function(e){
-    if(e.target.matches("select, input, textarea, button")){
-        scheduleAutoSave();
-    }
+  if (e.target.matches("select, input, textarea, button")) {
+    scheduleAutoSave();
+  }
 });
-
-
-
-
-
-var _pn=localStorage.getItem('projectName');
-if(_pn){
-    var _pnel=document.getElementById('project-name');
-    if(_pnel) _pnel.textContent=_pn;
-}
-``
-
-

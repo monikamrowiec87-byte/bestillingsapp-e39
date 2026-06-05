@@ -1,5 +1,4 @@
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --bg: #f5f6f8;
@@ -1161,4 +1160,3 @@
     .vac-add-form { grid-template-columns: 1fr 1fr; }
     .vac-add-form .vac-add-btn { grid-column: 1 / -1; }
   }
-

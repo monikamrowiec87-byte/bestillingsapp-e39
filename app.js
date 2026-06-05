@@ -1778,14 +1778,13 @@ if (_pn) {
   if (_pnel) _pnel.textContent = _pn;
 }
 
-window.addEventListener('DOMContentLoaded', function () {
+function _appInit() {
   var _hasSaved = false;
   try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
   if (_hasSaved) {
     initTasksFromSaved();
     loadSaved();
   }
-  // If still empty (corrupt save or first visit), populate from SECTIONS_DATA
   if (tasks.length === 0) {
     initTasks();
   }
@@ -1793,7 +1792,13 @@ window.addEventListener('DOMContentLoaded', function () {
   renderLinks();
   renderModelLinks();
   spLoadConfig();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', _appInit);
+} else {
+  _appInit();
+}
 
 // Sørg for at lagring skjer etter endring
 document.addEventListener("change", scheduleAutoSave);

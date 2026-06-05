@@ -49,6 +49,33 @@
 .name-display-wrap:hover .irrelevant-btn:not(.is-irrelevant) {
   display: inline-flex;
 }
+
+/* ── Rad-handlinger (rediger / flytt / slett) ── */
+.task-row-actions {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.name-display-wrap:hover .task-row-actions {
+  display: inline-flex;
+}
+.move-btn {
+  font-size: 9px;
+  padding: 2px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  line-height: 1;
+  transition: background .12s, color .12s;
+}
+.move-btn:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
 </style>
 
 </head>

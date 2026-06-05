@@ -8,48 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<style>
-/* ── Ikke-relevant stil ── */
-.task-irrelevant {
-  opacity: 0.38;
-}
-.task-irrelevant .task-name-content {
-  text-decoration: line-through;
-  color: var(--text3);
-}
-.irrelevant-btn {
-  display: none;
-  font-size: 10px;
-  padding: 2px 7px;
-  border-radius: 10px;
-  border: 1px solid var(--border2);
-  background: transparent;
-  color: var(--text3);
-  cursor: pointer;
-  white-space: nowrap;
-  line-height: 1.4;
-  transition: background .15s, color .15s, border-color .15s;
-}
-.irrelevant-btn:hover {
-  background: var(--red-bg);
-  color: var(--red);
-  border-color: var(--red);
-}
-.irrelevant-btn.is-irrelevant {
-  display: inline-flex;
-  background: var(--gray-bg);
-  color: var(--text2);
-  border-color: var(--border2);
-}
-.irrelevant-btn.is-irrelevant:hover {
-  background: var(--green-bg);
-  color: var(--green);
-  border-color: var(--green);
-}
-.name-display-wrap:hover .irrelevant-btn:not(.is-irrelevant) {
-  display: inline-flex;
-}
-</style>
 
 </head>
 <body>
@@ -89,7 +47,6 @@
       <button class="filter-btn" id="f-valgte" onclick="toggleFilter('valgte')">Vis kun valgte</button>
       <button class="filter-btn" id="f-frist" onclick="toggleFilter('frist')">Utløpt frist</button>
       <button class="filter-btn" id="f-pågår" onclick="toggleFilter('pågår')">Pågår</button>
-      <button class="filter-btn" id="f-irrelevant" onclick="toggleFilter('irrelevant')">Skjul ikke-relevante</button>
     </div>
     <div class="summary" id="summary-bar"></div>
     <div class="col-headers">

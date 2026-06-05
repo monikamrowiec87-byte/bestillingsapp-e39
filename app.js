@@ -101,7 +101,7 @@ let modelLinks = [
 ];
 let modelIdCounter = 2;
 let linkEditGroup = 'doc';
-let filters = {valgte:false, frist:false, pågår:false, irrelevant:false};
+let filters = {valgte:false, frist:false, pågår:false};
 let activeTab = 'liste';
 let kanbanView = 'tidslinje';
 
@@ -129,7 +129,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: '', sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: '', irrelevant: false
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
           });
         });
       });
@@ -143,7 +143,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: firstName, sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: '', irrelevant: false
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
           });
         });
       });
@@ -208,8 +208,7 @@ function loadSaved() {
             status: s.status || 'Ikke startet',
             link: s.link || '', comment: s.comment || '',
             ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || '',
-            eier: s.eier || '',
-            irrelevant: !!s.irrelevant
+            eier: s.eier || ''
           });
           if (s.id >= idCounter) idCounter = s.id + 1;
         });
@@ -229,7 +228,6 @@ function loadSaved() {
             if (s.selected !== undefined) t.selected = s.selected;
             if (s.name     !== undefined) t.name     = s.name;
             if (s.undersec !== undefined) t.undersec = s.undersec;
-            if (s.irrelevant !== undefined) t.irrelevant = s.irrelevant;
           }
         });
         // Restore custom-added tasks (excelId === '')
@@ -406,14 +404,6 @@ function toggleSelect(id) {
   render();
 }
 
-function toggleIrrelevant(id) {
-  const t = tasks.find(t=>t.id===id);
-  if (!t) return;
-  t.irrelevant = !t.irrelevant;
-  scheduleAutoSave();
-  render();
-}
-
 function getToday() { return new Date().toISOString().split('T')[0]; }
 
 
@@ -533,7 +523,6 @@ function _filterTasks(list, q, today) {
     if(filters.valgte && !t.selected) return false;
     if(filters.frist && !(t.frist&&t.frist<today&&t.status!=='Ferdig')) return false;
     if(filters['pågår'] && t.status!=='Pågår') return false;
-    if(filters.irrelevant && t.irrelevant) return false;
     return true;
   });
 }
@@ -569,14 +558,13 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
     si.forEach(function(t){
       var ov=t.frist&&t.frist<today&&t.status!=='Ferdig';
       var sc=STATUS_COLORS[t.status]||{bg:'',color:''};
-      html += '<div class="task-row'+(t.selected?' selected':'')+(t.irrelevant?' task-irrelevant':'')+'" id="row-'+t.id+'">';
+      html += '<div class="task-row'+(t.selected?' selected':'')+'" id="row-'+t.id+'">';
       html += '<input type="checkbox" class="cb" '+(t.selected?'checked':'')+' onchange="toggleSelect('+t.id+')">';
       html += '<div class="task-name-cell">';
       html += '<div class="name-display-wrap" id="namedisplay-'+t.id+'">';
       html += '<div class="task-name-content">'+makeName(t.name)+'</div>';
       html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger (PIN kreves)">&#9998;</button>';
       if(!t.excelId) html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
-      html += '<button class="irrelevant-btn'+(t.irrelevant?' is-irrelevant':'')+'" onclick="toggleIrrelevant('+t.id+')" title="'+(t.irrelevant?'Merk som relevant':'Merk som ikke relevant')+'">'+(t.irrelevant?'&#10003; Ikke relevant':'&#8416; Ikke relevant')+'</button>';
       html += '</div>';
       html += '<div class="name-edit-wrap" id="nameedit-'+t.id+'">';
       html += '<textarea class="name-edit-input" rows="3"'

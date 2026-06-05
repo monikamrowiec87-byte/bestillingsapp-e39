@@ -16,7 +16,71 @@ const STATUS_BAR = {
   'Ikke startet':'#B4B2A9','Pågår':'#EF9F27','Til review':'#378ADD','Ferdig':'#1D9E75','Blokkert':'#E24B4A'
 };
 
-const SECTIONS_DATA = {"0 Generell": {"": [{"id": "GEN-00-1", "name": "Pris for tilbudsfase"}, {"id": "GEN-00-2", "name": "Fremdriftsplan I tilbudsfase"}, {"id": "GEN-00-3", "name": "Gjennomgang av veilinje"}, {"id": "GEN-00-4", "name": "Fremdriftsplan"}, {"id": "GEN-00-5", "name": "Pris for prosjektering"}, {"id": "GEN-00-6", "name": "Søknader-liste"}, {"id": "GEN-00-7", "name": "CV for nøkkelpersonell"}, {"id": "GEN-00-8", "name": "Beslutnigsnotater"}]}, "1 Sprengning og masseflytting": {"1. Mengder": [{"id": "FAG-01-11", "name": "m³ sprengning (fast berg)\nm³ løsmasser (jord, morene, myr etc.)\nm³ overmasser (avdekking)\nMassebalanse: overskudd / underskudd (m³)"}], "2. Berg og sprengningsforhold": [{"id": "FAG-01-21", "name": "Bergtype / hardhet\nAndel dårlig berg (%)"}, {"id": "FAG-01-23", "name": "Oppsprekking / svakhetssoner"}, {"id": "FAG-01-24", "name": "Krav til sprengning:\n-  kontursprengning (ja/nei)\n- restriksjoner (vibrasjon, nærhet til bygg)"}], "3. Geometri og uttak": [{"id": "FAG-01-31", "name": "Skjæringshøyder og lengder"}, {"id": "FAG-01-32", "name": "Pallhøyder (hvis aktuelt)"}, {"id": "FAG-01-33", "name": "Helninger i skjæring"}], "4. Løsmasser": [{"id": "FAG-01-41", "name": "Type masser (jord / leire / myr / blokk)\nOmfang per massetype (m³)\nBehov for masseutskifting/stabilisering"}], "5. Massehåndtering og transport": [{"id": "FAG-01-51", "name": "Andel masser til gjenbruk/deponi"}, {"id": "FAG-01-52", "name": "Krav til deponi plassering/evt.miljøkrav"}], "6. Oppfylling og gjenbruk": [{"id": "FAG-01-61", "name": "m³ masser til fylling"}, {"id": "FAG-01-62", "name": "Krav til massetyper (sprengstein / kult / jord)"}, {"id": "FAG-01-63", "name": "Krav til lagvis oppbygging og komprimering"}], "7. Midlertidige arbeider": [{"id": "FAG-01-71", "name": "Rigg og adkomst for masseflytting"}, {"id": "FAG-01-72", "name": "Midlertidige masselagre"}, {"id": "FAG-01-73", "name": "Håndtering av vann i skjæring"}], "8. Usikkerheter": [{"id": "FAG-01-81", "name": "Hva som ikke er prosjektert"}, {"id": "FAG-01-82", "name": "Variasjon i berg/løsmasser"}, {"id": "FAG-01-83", "name": "Uavklarte deponiløsninger"}]}, "2 Tunneler": {"1. Vurdering av veilinja- optimaliseringsmuligheter": [{"id": "FAG-02-11", "name": "Plan og lengdeprofil (hele tunnelen)"}, {"id": "FAG-02-12", "name": "Vurdering av plassering av lavbrekk og høybrekk"}, {"id": "FAG-02-13", "name": "Tverrfall og stigning"}, {"id": "FAG-02-14", "name": "Antall og plassering:\n-\tPortaler\n-\thavarinisjer \n-\tstopplommer\n-\t tekniske bygg\n-\t Tverrforbindelser\n-\t SOS-kiosker"}], "2. Ingeniørgeologi – vurdering": [{"id": "FAG-02-21", "name": "Ingeniørgeologisk rapport- gjennomgang og vurdering"}, {"id": "FAG-02-22", "name": "Bergkvalitet langs hele traseen (Q/RMR)"}, {"id": "FAG-02-23", "name": "Sonekart (svakhetssoner)"}, {"id": "FAG-02-24", "name": "Vanninntrenging (mengder/soner)"}, {"id": "FAG-02-25", "name": "Overdekning"}], "3. Sikring og vann-/frostsikring": [{"id": "FAG-02-31", "name": "Sikringsklasser (fordelt på lengder)"}, {"id": "FAG-02-32", "name": "Omfang injeksjon (for-/etterinjeksjon)"}, {"id": "FAG-02-33", "name": "Vann- og frostsikring:\n- type (membran/PE-skum)\n- drenssystem/omfang"}], "4. Vann og drenering": [{"id": "FAG-02-41", "name": "Forventede vannmengder inn i tunnel"}, {"id": "FAG-02-42", "name": "Drenssystem og føring ut (prinsipp + omfangt)"}, {"id": "FAG-02-43", "name": "Håndtering av vann i anleggsfase"}, {"id": "FAG-02-44", "name": "Plassering trekkerør"}], "5. Elektro og tekniske installasjoner": [{"id": "FAG-02-51", "name": "Ventilasjon (type, plassering, omfang)"}, {"id": "FAG-02-52", "name": "Belysning (omfang)"}, {"id": "FAG-02-53", "name": "Sikkerhetsutstyr iht. N500"}, {"id": "FAG-02-54", "name": "Nødutganger/tverrforbindelser"}, {"id": "FAG-02-55", "name": "SRO detaljer"}, {"id": "FAG-02-56", "name": "Skiltliste"}, {"id": "FAG-02-57", "name": "SOS-kiosker (hvis ikke mengde påvirker vesentlig)"}], "6. Mengder og kalkylegrunnlag": [{"id": "FAG-02-61", "name": "Sprengning (m³)"}, {"id": "FAG-02-62", "name": "Sikring (fordelt på klasser/lengder)"}, {"id": "FAG-02-63", "name": "Betong (portaler, tekniske bygg hvis relevant)"}, {"id": "FAG-02-64", "name": "Usikkerhetsnivå per post"}], "7. Usikkerheter og forutsetninger": [{"id": "FAG-02-71", "name": "Andel dårlig berg (%)"}, {"id": "FAG-02-72", "name": "Behov for spesielle tiltak (frysing, spunt etc.)"}, {"id": "FAG-02-73", "name": "Hva som ikke er prosjektert"}], "8. Overvann i tunnel": [{"id": "FAG-02-81", "name": "Prinsipp for håndtering av overvann"}, {"id": "FAG-02-82", "name": "Sedimenteringsbasseng:\n- kapasitet\n- behov"}]}, "3 Tunnelportaler": {"1. Geometri og omfang": [{"id": "FAG-03-11", "name": "Plassering av portal (tegning)"}, {"id": "FAG-03-12", "name": "Portaltype (rett, skrå, utkraget etc.)"}, {"id": "FAG-03-13", "name": "Lengde og bredde"}, {"id": "FAG-03-14", "name": "Terrengtilpasning"}], "2. Portal- og frontkonstruksjon": [{"id": "FAG-03-21", "name": "Type konstruksjon (plasstøpt / prefab / naturstein etc.)"}, {"id": "FAG-03-22", "name": "Hoveddimensjoner"}], "3. Skjæringer ved portal": [{"id": "FAG-03-31", "name": "Omfang jord vs. fjell"}, {"id": "FAG-03-33", "name": "Sikringsomfang:\n- bolting\n- nett\n- sprøytebetong"}], "4. Sikring ved innslag": [{"id": "FAG-03-41", "name": "Sikringsklasser og lengder i portalsone"}, {"id": "FAG-03-42", "name": "Omfang injeksjon"}], "5. Grunnforhold og fundamentering": [{"id": "FAG-03-51", "name": "Grunnforhold ved portal"}, {"id": "FAG-03-52", "name": "Behov for tiltak (utskifting, fundamentering etc.)"}], "6. Vann og drenering": [{"id": "FAG-03-61", "name": "Vanninnsig (omfang)"}, {"id": "FAG-03-62", "name": "Drensløsning (prinsipp og mengde)"}], "7. Byggefase": [{"id": "FAG-03-71", "name": "Tilkomst/riggforhold"}, {"id": "FAG-03-72", "name": "Behov for midlertidig sikring"}], "8. Mengder": [{"id": "FAG-03-81", "name": "Sprengning (m³ jord/fjell)\nSikring (fordelt på typer/lengder)\nBetong portal\nMasser (ut/inn)"}], "9. Usikkerheter": [{"id": "FAG-03-91", "name": "Andel dårlig berg ved portal"}, {"id": "FAG-03-92", "name": "Behov for spesielle tiltak"}, {"id": "FAG-03-93", "name": "Hva som ikke er prosjektert"}]}, "4 Vei i dagen": {"1. Geometri og linjeføring": [{"id": "FAG-04-11", "name": "Vurdering av veilinja- optimaliseringsmulingheter\nPlan og lengdeprofil\nTverrprofil (bredder, skulder)\nStigning og tverrfall"}], "2. Vegoppbygning": [{"id": "FAG-04-21", "name": "Dimensjonert overbygning:\n- lagtykkelser\n- materialtyper"}], "3. Masse og terreng": [{"id": "FAG-04-31", "name": "Massebalanse\nOmfang jord vs. fjell (m³)\nFyllinger og skjæringer (høyder/helninger)"}], "4. Grunnforhold – vurdering": [{"id": "FAG-04-41", "name": "Hovedtype grunn (jord/fjell/myr)"}, {"id": "FAG-04-42", "name": "Behov for:\n- masseutskifting\n- stabilisering"}], "5. Drenering og overvann": [{"id": "FAG-04-51", "name": "Grøfter (omfang og type)"}, {"id": "FAG-04-52", "name": "Stikkrenner (dimensjon og antall)"}], "6. Erosjon og sikring": [{"id": "FAG-04-61", "name": "Erosjonssikring (mengde/type)"}, {"id": "FAG-04-62", "name": "Sikring i skjæringer (omfang)"}], "7. Sideanlegg og utstyr (kun mengdestyrende)": [{"id": "FAG-04-71", "name": "-\tRekkverk (type og lengder)\n-\tSkilt og oppmerking\n-\tBelysning (hvis aktuelt)\n-\tFartsdempende tiltak / øvrig vegutstyr"}], "8. Kryss og tilkoblinger": [{"id": "FAG-04-81", "name": "Kun hvis egne mengder:\n-omfang/areal"}], "9. Byggefase": [{"id": "FAG-04-91", "name": "Midlertidige løsninger"}], "10. Mengder og kalkylegrunnlag": [{"id": "FAG-04-101", "name": "-\tJord/fjell (m³)\n-\tVegoppbygning (m²/m³)\n-\tGrøfter/rør\n-\tTegninger med målbare poster"}], "11. Usikkerheter / forutsetninger": [{"id": "FAG-04-111", "name": "Hva som ikke er prosjektert"}, {"id": "FAG-04-112", "name": "Poster med høy usikkerhet"}]}, "5 Konstruksjoner/bruer": {"0. Felles krav – alle bruer": [{"id": "K-FELLES-01", "name": "QTO – Betong (m³)\n- Overbygning\n- Underbygning\n- Fundament / landkar\n- Murer der de inngår i bruløsningen"}, {"id": "K-FELLES-02", "name": "QTO – Slakkarmering (kg)\n- Per hovedkomponent (overbygning / underbygning / fundament)"}, {"id": "K-FELLES-03", "name": "QTO – Spennarmering (kg)\n- Per hovedkomponent"}, {"id": "K-FELLES-04", "name": "QTO – Stål tonn (bærende stål)\n- Kun der aktuelt: K500, K540, K700 opsjon stålbjelker\n- Bjelker og tverravstivninger separat"}, {"id": "K-FELLES-05", "name": "Konsept- og gjennomførbarhetsnotat per bru\n- Konseptvalg (regulert + optimalisert)\n- Byggbarhet / rask gjennomføring\n- Midlertidige arbeider som kan bli dimensjonerende\n- Fundamenteringsprinsipp på overordnet nivå"}], "1. K300 – Grundelandsvatnet bru": [{"id": "K300-01", "name": "Konseptgjennomgang – bedre løsning\n- Norconsult utarbeider 1–2 alternative skisser på prinsippnivå\n- Regulert løsning: platebru i spennarmert betong"}, {"id": "K300-02", "name": "QTO – regulert og alternativ løsning\n- Betong (m³)\n- Slakkarmering (kg)\n- Spennarmering (kg)"}], "2. K400 – Audnedalen bru (FFB)": [{"id": "K400-01", "name": "Optimalisering av FFB-søyler\n- Tverrsnitt og produksjonsmetode\n- OBS: byggefasen (vind/dynamikk) kan være styrende – kontroller dette eksplisitt"}, {"id": "K400-02", "name": "Alternativ spennfordeling: kutte akse 2\n- Ny fordeling: 136 + 236 + 136 m\n- Konsekvens for terreng / fylling\n⚠️ Krever mer fylling – Stangeland Maskin AS må ta stilling"}, {"id": "K400-03", "name": "Byggbarhet og midlertidige arbeider\n- Konsekvens av endret spennfordeling\n- Adkomst og rigg ved søyler"}, {"id": "K400-04", "name": "QTO – regulert og alternativ løsning\n- Betong (m³)\n- Slakkarmering (kg)\n- Spennarmering (kg)"}], "3. K500 – Faksevatnet bru": [{"id": "K500-01", "name": "Byggbarhetsgjennomgang av regulert samvirkebruløsning\n- Identifiser hva som gjør reis krevende\n- Regulert: samvirkebru, stålbjelker med betongplate"}, {"id": "K500-02", "name": "Alternativ: ett spenn – prinsippskisse\n- Geometri, fundamentering / landkar\n- Montasjeprinsipp\n- QTO-konsekvenser"}, {"id": "K500-03", "name": "QTO – regulert og ett-spenns alternativ\n- Betong (m³)\n- Slakkarmering (kg)\n- Spennarmering (kg)\n- Stål tonn"}], "4. K540 – Høylandsbekken bru": [{"id": "K540-01", "name": "Ingen optimalisering foreløpig – kun mengdeverifisering\nQTO:\n- Betong (m³)\n- Slakkarmering (kg)\n- Stål tonn\n- Evt. spennarmering (kg) dersom det inngår"}], "5. K600 – Lene bruer (oppstrøms + nedstrøms)": [{"id": "K600-01", "name": "Byggbarhetsvurdering av regulert løsning\n- Regulert oppstrøms: ett spenn, 34 m, betongplatebru\n- Regulert nedstrøms: to spenn 26+26 m\n- Adkomst, rigg og midlertidige tiltak ved bekk\n- Vurder midlertidig rørlegging / midlertidig bru / fylling"}, {"id": "K600-02", "name": "Alternativstudie: oppstrøms bru lengre, mindre mur\n- 1–2 skissealternativer på prinsippnivå\n- Endret spenn / landkarlokalisering og konsekvens for terreng\n- Konsekvens for mur (mål: reduksjon)\n- Konsekvens for fremdrift og midlertidige arbeider"}, {"id": "K600-03", "name": "QTO – begge bruer (regulert og alternativ)\n- Betong (m³)\n- Slakkarmering (kg)\n- Spennarmering (kg)"}], "6. K700 – Optedal bru (kritisk linje)": [{"id": "K700-01", "name": "⚡ KRITISK LINJE – rask og enkel gjennomføring er premiss\nOptimalisert hovedløsning – ikke betongkasse\n- Minst ett alternativ til kassebru (f.eks. samvirke stålbjelker + betongdekke)\n- Regulert: kassebru i spennarmert betong, 5 spenn (34+40+56+40+34 m)"}, {"id": "K700-02", "name": "Byggbarhet for rask gjennomføring\n- Montasjeprinsipp\n- Minimale midlertidige arbeider\n- Konsekvens for støttemur ved østre landkar (ca. 340 m, maks 12 m høyde)"}, {"id": "K700-03", "name": "Opsjon: stålbjelkeløsning med samvirke\n- Separat opsjonsbeskrivelse for tilbudet\n- Fire langsgående parallelle stålbjelker + betongdekke"}, {"id": "K700-04", "name": "QTO – regulert kassebru (prissammenligning) + optimalisert løsning (faktisk tilbud)\n- Betong (m³)\n- Slakkarmering (kg)\n- Spennarmering (kg)\n- Stål tonn ved stålalternativ"}]}, "6 Faunapassasje Viltlokk": {"1. Geometri og løsning- vurdering": [{"id": "FAG-06-11", "name": "Brutype\n-\t\tMaterialvalg\n-\t\tHoveddimensjoner (prinsippsnitt)\nLengde, bredde og fri høyde (tegnet og målsatt)"}], "2. Geometri og valgt løsning": [{"id": "FAG-06-12", "name": "Lengde, bredde og fri høyde (tegnet og målsatt)"}], "3. Grunnforhold og fundamentering": [{"id": "FAG-06-21", "name": "Grunnforhold og fundamenteringsmetode\nBehov for:\n-\tmasseutskifting\n-\tstabilisering"}], "4. Drenering og vann": [{"id": "FAG-06-31", "name": "Dreneringsløsning (omfang), eventuell vannføring gjennom passasjen"}], "5. Lokk, terreng og vegetasjon": [{"id": "FAG-06-41", "name": "-\tOppbygning (lag og tykkelser)\n-\tOmfang terrengforming (m³)\n-\tOmfang vegetasjon (m²)\n-\tGjerder/ledesystemer (lengder)"}], "6. Byggefase": [{"id": "FAG-06-51", "name": "-\tMassebalanse\n-\tMidlertidige løsninger"}], "7. Usikkerheter": [{"id": "FAG-06-71", "name": "-\tHva som ikke er prosjektert\n-\tPoster med høy usikkerhet"}]}, "7 Kulvert (vei)": {"1. Dimensjon og type": [{"id": "FAG-07-11", "name": "-\tKonsepytvurdering\n-\tKulverttype\n-\tDimensjon (Ø / B x H)\n-\tLengde"}], "2. Vannføring": [{"id": "FAG-07-21", "name": "-\tDimensjonerende vannføring (Qdim/Q200)\n-\tKoter innløp/utløp"}], "3. Grunnforhold": [{"id": "FAG-07-31", "name": "-\tGrunnforhold (jord/fjell/myr)\n-\tBehov for masseutskifting eller tiltak"}], "4. Innløp/utløp og sikring": [{"id": "FAG-07-41", "name": "-\tOmfang erosjonssikring\n-\tSteinstørrelser"}], "5. Vegoppbygning over kulvert": [{"id": "FAG-07-51", "name": "-\tOverdekning\n-\tLagtykkelser"}], "6. Byggefase": [{"id": "FAG-07-61", "name": "Hvordan vann håndteres under bygging"}], "7. Mengder (må være kalkulerbare)": [{"id": "FAG-07-71", "name": "-\tGraving (m³)\n-\tTilbakefylling\n-\tErosjonssikring"}], "8. Usikkerheter": [{"id": "FAG-07-81", "name": "Hva som ikke er prosjektert"}]}, "8 Omlegging av bekk": {"1. Hydrologi / hydraulikk": [{"id": "FAG-08-11", "name": "Dimensjonerende vannføring (Q200 + klimafaktor)"}, {"id": "FAG-08-12", "name": "Fall og hastigheter"}], "2. Geometri nytt bekkeløp": [{"id": "FAG-08-21", "name": "-\tLengde\n-\tBredde og dybde\n-\tSkråninger\n-\tTverrsnitt"}], "3. Erosjonssikring": [{"id": "FAG-08-31", "name": "-\tOmfang (bunn/sider/innløp/utløp)\n-\tSteinstørrelser"}], "4. Geoteknikk": [{"id": "FAG-08-41", "name": "-\tStabilitet langs trasé\n-\tRisiko for undergraving"}], "5. Midlertidig bekk (anleggsfase)": [{"id": "FAG-08-51", "name": "Trase og lengde, kapasitet"}], "6. Restriksjoner": [{"id": "FAG-08-61", "name": "Tidsvinduer (gyting/yngel)"}], "7. Mengder / kalkylegrunnlag": [{"id": "FAG-08-71", "name": "-\tGraving (m³)\n-\tStein/plastring\n-\tSubstrat\n-\tVegetasjon"}], "8. Usikkerheter / forutsetninger": [{"id": "FAG-08-81", "name": "Hva som ikke er prosjektert"}]}, "9 Åpent Sedimentasjonsbasseng": {"1. Dimensjon og omfang": [{"id": "9-01", "name": "-\tBassengvolum (m³)\n-\tDybde\n-\tAreal/utstrekning"}], "3. Oppbygning": [{"id": "9-02", "name": "-\tTverrsnitt/prinsipp (skråninger, bunntype)\n-\tMassetyper (jord/stein)"}], "4. Tetting": [{"id": "9-03", "name": "-\tType (membran / naturlig)\n-\tOmfang (m²)"}], "5. Innløp og utløp": [{"id": "9-04", "name": "-\tPrinsipp og dimensjon\n-\tErosjonssikring (omfang)"}], "6. Grunnforhold": [{"id": "9-05", "name": "-\tGrunnforhold (jord/myr/fjell)\n-\tBehov for masseutskifting eller tiltak"}], "7. Byggefase": [{"id": "9-06", "name": "Midlertidig vannhåndtering"}], "8. Mengder": [{"id": "9-07", "name": "-\tGraving (m³)\n-\tMasser (fylling/oppbygging)\n-\tTetting (m²)\n-\tErosjonssikring"}], "9. Usikkerheter": [{"id": "9-08", "name": "Hva som ikke er prosjektert"}]}, "10 Lukket sedimentasjonsbasseng": {"1. Type og omfang": [{"id": "10-01", "name": "-\tLøsningstype (prefab / plasstøpt)\n-\tVolum (m³)\n-\tAntall kammer"}], "2. Geometri og dimensjoner": [{"id": "10-02", "name": "-\tLengde / bredde / høyde\n-\tKoter (bunn / topp / inn-/utløp)"}], "3. Konstruksjon": [{"id": "10-03", "name": "-\tBetong (m³)\n-\tArmering (kg)\n-\tLokk/dekke (type og dimensjon)\n-\tKrav til tetthet"}], "4. Rør og tilkoblinger": [{"id": "10-04", "name": "-\tInnløp/utløp (antall og dimensjon)\n-\tKoter inn-/utløp\n-\tKummer/inspeksjonspunkter"}], "5. Grunnforhold og fundamentering": [{"id": "10-05", "name": "Behov for:\n-Masseutskifting\n-fundamentplate / peler\nJord / fjell"}], "6. Graving og tilbakefylling": [{"id": "10-06", "name": "-\tm³ graving\n-\tm³ tilbakefylling\n-\tKrav til masser og komprimering"}], "8. Mengder (må være kalkulerbare)": [{"id": "10-07", "name": "-\tBetong (m³)\n-\tArmering (kg)\n-\tGraving / tilbakefylling (m³)\n-\tRør (m / dimensjoner)\n-\tKummer (antall)"}], "9. Usikkerheter": [{"id": "10-08", "name": "-\tHva som ikke er prosjektert\n-\tValg av løsning (prefab vs. plasstøpt hvis ikke avklart)\n-\tGrunnforhold"}]}, "11  Ankomstveier": {"1. Geometri og omfang": [{"id": "11-01", "name": "-\tLengde\n-\tPlan og profil\n-\tStigning\n-\tTverrprofil (bredde)"}], "2. Oppbygning av vei": [{"id": "11-02", "name": "-\tLagtykkelser\n-\tMaterialtyper"}], "3. Grunnforhold langs trasé": [{"id": "11-03", "name": "-\tJord / fjell\n-\tBehov for:\n-\tutskifting\n-\tsprengning\n-\tEventuelle myrområder"}], "4. Drenering": [{"id": "11-04", "name": "-\tGrøfter (dimensjon og sidevalg)\n-\tStikkrenner (antall, dimensjon, plassering)"}], "5. Masse og terreng": [{"id": "11-05", "name": "-\tOmfang jord / fjell (m³)\n-\tFyllinger og skjæringer (høyder/helninger)\n-\tSikringsomfang:\n-\t\tbolting\n-\t\terosjonssikring"}], "6. Kryssing og tilkobling": [{"id": "11-06", "name": "Omfang tiltak på eksisterende vei"}], "7. Mengder": [{"id": "11-07", "name": "-\tGraving (m³ jord/fjell)\n-\tOppbygging (m³)\n-\tLengde vei\n-\tStikkrenner (antall/dimensjon)"}]}, "12 Passering av myr/ bevarfing av myra": {"1. Omfang": [{"id": "12-01", "name": "-\tLengde og bredde myrområder\n-\tMektighet (dybde pr. område)"}], "2. Grunnundersøkelser- vurdering": [{"id": "12-02", "name": "-\tHovedtype og styrke (bløt/myk)\n-\tSetningspotensial"}], "3. Valgt håndteringsmetode per område": [{"id": "12-03", "name": "Metode pr. område:\n-\tmasseutskifting (omfang)\n-\tforbelastning\n-\tlettfylling\n-\tstabilisering"}], "4. Dimensjonering og nivå": [{"id": "12-04", "name": "-\tUtskiftningsdybde (m)\n-\tSideutslag (bredde)\n-\tOppbygning av fylling"}], "6. Fremdrift (kritisk kostdriver)": [{"id": "12-05", "name": "Krav til ventetid (forbelastning)"}], "7. Setninger og fremdrift": [{"id": "12-06", "name": "-\tForventede setninger\n-\tKrav til ventetid (ved forbelastning)\n-\tKrav til dokumentasjon"}], "8. Byggefase": [{"id": "12-07", "name": "Behov for midlertidige tiltak:\n-\tgeonett\n-\tforsterkning"}], "9. Mengder": [{"id": "12-08", "name": "-\tm³ myr som fjernes\n-\tm³ tilførte masser\n-\tMengder stabilisering / lettfylling"}], "10. Usikkerheter": [{"id": "12-09", "name": "-\tHva som ikke er prosjektert\n-\tVariasjon i dybder/forhold"}]}, "13 Overvannhåntering": {"1. Geometrii": [{"id": "13-01", "name": "Dimensjoner på: \n-\trør (Ø + lengder)\n-\tgrøfter (bredde/dybde)\n-\tkummer"}], "2. Basseng:": [{"id": "13-02", "name": "Dimensjoner på:\n-\tvolum (m³)\n-\tareal og dybde"}], "3. Utslippspunkter": [{"id": "13-03", "name": "-\tAntall og plassering\n-\tErosjonssikring (omfang)"}], "4. Erosjonssikring (mengder)": [{"id": "13-04", "name": "-\tOmfang\n-\tType\n-\tSteinstørrelser"}], "5. Sedimentasjonsbasseng (åpen og lukket)": [{"id": "13-05", "name": "-\tVolum (m³)\n-\tInn-/utløp (omfang)\n-\tTetting (type og omfang)"}], "6. Flom og sikkerhet": [{"id": "13-06", "name": "vurdering  på at løsning tåler Q200"}], "7. Midlertidig håndtering": [{"id": "13-07", "name": "-\tHvordan overvann håndteres i anlegg\n-\tVurdering om må bygges midlertidige løsninger"}], "8. Usikkerheter": [{"id": "13-08", "name": "-\tHva som ikke er prosjektert\n-\tForutsetninger som kan påvirke dimensjon/mengder"}]}, "14 Skredsikring": {"1. Omfang": [{"id": "14-01", "name": "-\tLengder og høyder på berørte strekninger\n-\tType skred (stein/jord/snø)"}], "2. Konkrete tiltak per sone": [{"id": "14-02", "name": "Hvilket tiltak hvor:\n- rensk\n- bolting\n- nett\n- fanggjerder\n- voller / grøfter"}], "3. Bolting og sikring i skrent": [{"id": "14-03", "name": "-\tAntall bolter pr. m² / pr. profil\n-\tBoltetyper og lengder\n-\tOmfang av rensk m²"}], "4. Fanggjerder / skredgjerder": [{"id": "14-04", "name": "-\tPlassering (skisse/prinsipp)\n-\tLengde og høyde\n-\tEnergiopptak (kJ-klasse)"}], "5. Voller og grøfter": [{"id": "14-05", "name": "-\tGeometri (høyde/bredde/lengde)\n-\tMassetype"}], "7 Mengder": [{"id": "14-06", "name": "Mengder:\n-\tm² rensk\n-\tm bolting\n-\tm fanggjerde\n-\tm³ voll/grøft"}], "8. Usikkerheter": [{"id": "14-07", "name": "-\tHva som ikke er prosjektert\n-\tVariasjon i omfang per sone"}]}, "15 Støttemurer": {"1. Geometri og omfang": [{"id": "15-01", "name": "-\tLengde og høyde pr. mur\n-\tTopp- og bunnkoter"}], "2. Murtype og konstruksjon": [{"id": "15-02", "name": "-\tValgt murtype (plasstøpt, prefab, gabion, spunt etc.)\n-\tPrinsippsnitt med dimensjoner\n-\tMaterialvalg"}], "3. Geoteknikk og fundamentering – vurdering": [{"id": "15-03", "name": "-\tJord / fjell\n-\tBehov for tiltak:\n-\t\tmasseutskifting\n-\t\tstabilisering\""}], "4. Drenering": [{"id": "15-04", "name": "-\tDrensløsning bak mur\n-\tFilterlag (type og tykkelse)"}], "5. Sikring og overflate": [{"id": "15-05", "name": "-\tErosjonssikring ved fot/topp\n-\tOverflatebehandling"}], "6. Byggefase": [{"id": "15-06", "name": "Midlertidig sikring (type/omfang)"}], "7. Mengder": [{"id": "15-07", "name": "-\tBetong (m³)\n-\tArmering (kg)\n-\tGraving og tilbakefylling (m³)\n-\tDrenslag/filter"}], "8. Usikkerheter": [{"id": "15-08", "name": "-\tHva som ikke er prosjektert\n-\tVariasjon i grunnforhold langs mur"}]}, "16 Bekkeklulvert": {"1. Dimensjon og omfang": [{"id": "16-01", "name": "Kulverttype\nDimensjon (B x H / Ø)\nLengde"}], "2. Erosjonssikring (stor kostdriver)": [{"id": "16-02", "name": "Omfang (innløp/utløp/bunn/sider)\nSteinstørrelser"}], "3. Grunnforhold vurdering": [{"id": "16-03", "name": "-\tJord/fjell/myr\n-\tBehov for masseutskifting eller tiltak"}], "4. Fiskekrav (hvis aktuelt)": [{"id": "16-04", "name": "Krav til bunn (substrat)\nEventuelle krav til vannhastighet/dybde"}], "5. Byggefase": [{"id": "16-05", "name": "Midlertidig vannhåndtering\nBehov for midlertidig bekk"}], "6. Mengder (må være gitt eller beregnbare)": [{"id": "16-06", "name": "Graving (m³)\nTilbakefylling\nErosjonssikring\nSubstrat"}]}};
+const SECTIONS_DATA = {"0 Generell": {"": [{"id": "GEN-00-1", "name": "Pris for tilbudsfase"}, {"id": "GEN-00-2", "name": "Fremdriftsplan I tilbudsfase"}, {"id": "GEN-00-3", "name": "Gjennomgang av veilinje"}, {"id": "GEN-00-4", "name": "Fremdriftsplan"}, {"id": "GEN-00-5", "name": "Pris for prosjektering"}, {"id": "GEN-00-6", "name": "Søknader-liste"}, {"id": "GEN-00-7", "name": "CV for nøkkelpersonell"}, {"id": "GEN-00-8", "name": "Beslutnigsnotater"}]}, "1 Sprengning og masseflytting": {"1. Mengder": [{"id": "FAG-01-11", "name": "m³ sprengning (fast berg)\nm³ løsmasser (jord, morene, myr etc.)\nm³ overmasser (avdekking)\nMassebalanse: overskudd / underskudd (m³)"}], "2. Berg og sprengningsforhold": [{"id": "FAG-01-21", "name": "Bergtype / hardhet\nAndel dårlig berg (%)"}, {"id": "FAG-01-23", "name": "Oppsprekking / svakhetssoner"}, {"id": "FAG-01-24", "name": "Krav til sprengning:\n-  kontursprengning (ja/nei)\n- restriksjoner (vibrasjon, nærhet til bygg)"}], "3. Geometri og uttak": [{"id": "FAG-01-31", "name": "Skjæringshøyder og lengder"}, {"id": "FAG-01-32", "name": "Pallhøyder (hvis aktuelt)"}, {"id": "FAG-01-33", "name": "Helninger i skjæring"}], "4. Løsmasser": [{"id": "FAG-01-41", "name": "Type masser (jord / leire / myr / blokk)\nOmfang per massetype (m³)\nBehov for masseutskifting/stabilisering"}], "5. Massehåndtering og transport": [{"id": "FAG-01-51", "name": "Andel masser til gjenbruk/deponi"}, {"id": "FAG-01-52", "name": "Krav til deponi plassering/evt.miljøkrav"}], "6. Oppfylling og gjenbruk": [{"id": "FAG-01-61", "name": "m³ masser til fylling"}, {"id": "FAG-01-62", "name": "Krav til massetyper (sprengstein / kult / jord)"}, {"id": "FAG-01-63", "name": "Krav til lagvis oppbygging og komprimering"}], "7. Midlertidige arbeider": [{"id": "FAG-01-71", "name": "Rigg og adkomst for masseflytting"}, {"id": "FAG-01-72", "name": "Midlertidige masselagre"}, {"id": "FAG-01-73", "name": "Håndtering av vann i skjæring"}], "8. Usikkerheter": [{"id": "FAG-01-81", "name": "Hva som ikke er prosjektert"}, {"id": "FAG-01-82", "name": "Variasjon i berg/løsmasser"}, {"id": "FAG-01-83", "name": "Uavklarte deponiløsninger"}]}, "2 Tunneler": {"1. Vurdering av veilinja- optimaliseringsmuligheter": [{"id": "FAG-02-11", "name": "Plan og lengdeprofil (hele tunnelen)"}, {"id": "FAG-02-12", "name": "Vurdering av plassering av lavbrekk og høybrekk"}, {"id": "FAG-02-13", "name": "Tverrfall og stigning"}, {"id": "FAG-02-14", "name": "Antall og plassering:\n-\tPortaler\n-\thavarinisjer \n-\tstopplommer\n-\t tekniske bygg\n-\t Tverrforbindelser\n-\t SOS-kiosker"}], "2. Ingeniørgeologi – vurdering": [{"id": "FAG-02-21", "name": "Ingeniørgeologisk rapport- gjennomgang og vurdering"}, {"id": "FAG-02-22", "name": "Bergkvalitet langs hele traseen (Q/RMR)"}, {"id": "FAG-02-23", "name": "Sonekart (svakhetssoner)"}, {"id": "FAG-02-24", "name": "Vanninntrenging (mengder/soner)"}, {"id": "FAG-02-25", "name": "Overdekning"}], "3. Sikring og vann-/frostsikring": [{"id": "FAG-02-31", "name": "Sikringsklasser (fordelt på lengder)"}, {"id": "FAG-02-32", "name": "Omfang injeksjon (for-/etterinjeksjon)"}, {"id": "FAG-02-33", "name": "Vann- og frostsikring:\n- type (membran/PE-skum)\n- drenssystem/omfang"}], "4. Vann og drenering": [{"id": "FAG-02-41", "name": "Forventede vannmengder inn i tunnel"}, {"id": "FAG-02-42", "name": "Drenssystem og føring ut (prinsipp + omfangt)"}, {"id": "FAG-02-43", "name": "Håndtering av vann i anleggsfase"}, {"id": "FAG-02-44", "name": "Plassering trekkerør"}], "5. Elektro og tekniske installasjoner": [{"id": "FAG-02-51", "name": "Ventilasjon (type, plassering, omfang)"}, {"id": "FAG-02-52", "name": "Belysning (omfang)"}, {"id": "FAG-02-53", "name": "Sikkerhetsutstyr iht. N500"}, {"id": "FAG-02-54", "name": "Nødutganger/tverrforbindelser"}, {"id": "FAG-02-55", "name": "SRO detaljer"}, {"id": "FAG-02-56", "name": "Skiltliste"}, {"id": "FAG-02-57", "name": "SOS-kiosker (hvis ikke mengde påvirker vesentlig)"}], "6. Mengder og kalkylegrunnlag": [{"id": "FAG-02-61", "name": "Sprengning (m³)"}, {"id": "FAG-02-62", "name": "Sikring (fordelt på klasser/lengder)"}, {"id": "FAG-02-63", "name": "Betong (portaler, tekniske bygg hvis relevant)"}, {"id": "FAG-02-64", "name": "Usikkerhetsnivå per post"}], "7. Usikkerheter og forutsetninger": [{"id": "FAG-02-71", "name": "Andel dårlig berg (%)"}, {"id": "FAG-02-72", "name": "Behov for spesielle tiltak (frysing, spunt etc.)"}, {"id": "FAG-02-73", "name": "Hva som ikke er prosjektert"}], "8. Overvann i tunnel": [{"id": "FAG-02-81", "name": "Prinsipp for håndtering av overvann"}, {"id": "FAG-02-82", "name": "Sedimenteringsbasseng:\n- kapasitet\n- behov"}]}, "3 Tunnelportaler": {"1. Geometri og omfang": [{"id": "FAG-03-11", "name": "Plassering av portal (tegning)"}, {"id": "FAG-03-12", "name": "Portaltype (rett, skrå, utkraget etc.)"}, {"id": "FAG-03-13", "name": "Lengde og bredde"}, {"id": "FAG-03-14", "name": "Terrengtilpasning"}], "2. Portal- og frontkonstruksjon": [{"id": "FAG-03-21", "name": "Type konstruksjon (plasstøpt / prefab / naturstein etc.)"}, {"id": "FAG-03-22", "name": "Hoveddimensjoner"}], "3. Skjæringer ved portal": [{"id": "FAG-03-31", "name": "Omfang jord vs. fjell"}, {"id": "FAG-03-33", "name": "Sikringsomfang:\n- bolting\n- nett\n- sprøytebetong"}], "4. Sikring ved innslag": [{"id": "FAG-03-41", "name": "Sikringsklasser og lengder i portalsone"}, {"id": "FAG-03-42", "name": "Omfang injeksjon"}], "5. Grunnforhold og fundamentering": [{"id": "FAG-03-51", "name": "Grunnforhold ved portal"}, {"id": "FAG-03-52", "name": "Behov for tiltak (utskifting, fundamentering etc.)"}], "6. Vann og drenering": [{"id": "FAG-03-61", "name": "Vanninnsig (omfang)"}, {"id": "FAG-03-62", "name": "Drensløsning (prinsipp og mengde)"}], "7. Byggefase": [{"id": "FAG-03-71", "name": "Tilkomst/riggforhold"}, {"id": "FAG-03-72", "name": "Behov for midlertidig sikring"}], "8. Mengder": [{"id": "FAG-03-81", "name": "Sprengning (m³ jord/fjell)\nSikring (fordelt på typer/lengder)\nBetong portal\nMasser (ut/inn)"}], "9. Usikkerheter": [{"id": "FAG-03-91", "name": "Andel dårlig berg ved portal"}, {"id": "FAG-03-92", "name": "Behov for spesielle tiltak"}, {"id": "FAG-03-93", "name": "Hva som ikke er prosjektert"}]}, "4 Vei i dagen": {"1. Geometri og linjeføring": [{"id": "FAG-04-11", "name": "Vurdering av veilinja- optimaliseringsmulingheter\nPlan og lengdeprofil\nTverrprofil (bredder, skulder)\nStigning og tverrfall"}], "2. Vegoppbygning": [{"id": "FAG-04-21", "name": "Dimensjonert overbygning:\n- lagtykkelser\n- materialtyper"}], "3. Masse og terreng": [{"id": "FAG-04-31", "name": "Massebalanse\nOmfang jord vs. fjell (m³)\nFyllinger og skjæringer (høyder/helninger)"}], "4. Grunnforhold – vurdering": [{"id": "FAG-04-41", "name": "Hovedtype grunn (jord/fjell/myr)"}, {"id": "FAG-04-42", "name": "Behov for:\n- masseutskifting\n- stabilisering"}], "5. Drenering og overvann": [{"id": "FAG-04-51", "name": "Grøfter (omfang og type)"}, {"id": "FAG-04-52", "name": "Stikkrenner (dimensjon og antall)"}], "6. Erosjon og sikring": [{"id": "FAG-04-61", "name": "Erosjonssikring (mengde/type)"}, {"id": "FAG-04-62", "name": "Sikring i skjæringer (omfang)"}], "7. Sideanlegg og utstyr (kun mengdestyrende)": [{"id": "FAG-04-71", "name": "-\tRekkverk (type og lengder)\n-\tSkilt og oppmerking\n-\tBelysning (hvis aktuelt)\n-\tFartsdempende tiltak / øvrig vegutstyr"}], "8. Kryss og tilkoblinger": [{"id": "FAG-04-81", "name": "Kun hvis egne mengder:\n-omfang/areal"}], "9. Byggefase": [{"id": "FAG-04-91", "name": "Midlertidige løsninger"}], "10. Mengder og kalkylegrunnlag": [{"id": "FAG-04-101", "name": "-\tJord/fjell (m³)\n-\tVegoppbygning (m²/m³)\n-\tGrøfter/rør\n-\tTegninger med målbare poster"}], "11. Usikkerheter / forutsetninger": [{"id": "FAG-04-111", "name": "Hva som ikke er prosjektert"}, {"id": "FAG-04-112", "name": "Poster med høy usikkerhet"}]}, "5 Konstruksjoner/bruer": {"0. Felles krav – alle bruer": [{"id": "K-FELLES-01", "name": "QTO – Betong (m³)
+- Overbygning
+- Underbygning
+- Fundament / landkar
+- Murer der de inngår i bruløsningen"}, {"id": "K-FELLES-02", "name": "QTO – Slakkarmering (kg)
+- Per hovedkomponent (overbygning / underbygning / fundament)"}, {"id": "K-FELLES-03", "name": "QTO – Spennarmering (kg)
+- Per hovedkomponent"}, {"id": "K-FELLES-04", "name": "QTO – Stål tonn (bærende stål)
+- Kun der aktuelt: K500, K540, K700 opsjon stålbjelker
+- Bjelker og tverravstivninger separat"}, {"id": "K-FELLES-05", "name": "Konsept- og gjennomførbarhetsnotat per bru
+- Konseptvalg (regulert + optimalisert)
+- Byggbarhet / rask gjennomføring
+- Midlertidige arbeider som kan bli dimensjonerende
+- Fundamenteringsprinsipp på overordnet nivå"}], "1. K300 – Grundelandsvatnet bru": [{"id": "K300-01", "name": "Konseptgjennomgang – bedre løsning
+- Norconsult utarbeider 1–2 alternative skisser på prinsippnivå
+- Regulert løsning: platebru i spennarmert betong"}, {"id": "K300-02", "name": "QTO – regulert og alternativ løsning
+- Betong (m³)
+- Slakkarmering (kg)
+- Spennarmering (kg)"}], "2. K400 – Audnedalen bru (FFB)": [{"id": "K400-01", "name": "Optimalisering av FFB-søyler
+- Tverrsnitt og produksjonsmetode
+- OBS: byggefasen (vind/dynamikk) kan være styrende – kontroller dette eksplisitt"}, {"id": "K400-02", "name": "Alternativ spennfordeling: kutte akse 2
+- Ny fordeling: 136 + 236 + 136 m
+- Konsekvens for terreng / fylling
+⚠️ Krever mer fylling – Stangeland Maskin AS må ta stilling"}, {"id": "K400-03", "name": "Byggbarhet og midlertidige arbeider
+- Konsekvens av endret spennfordeling
+- Adkomst og rigg ved søyler"}, {"id": "K400-04", "name": "QTO – regulert og alternativ løsning
+- Betong (m³)
+- Slakkarmering (kg)
+- Spennarmering (kg)"}], "3. K500 – Faksevatnet bru": [{"id": "K500-01", "name": "Byggbarhetsgjennomgang av regulert samvirkebruløsning
+- Identifiser hva som gjør reis krevende
+- Regulert: samvirkebru, stålbjelker med betongplate"}, {"id": "K500-02", "name": "Alternativ: ett spenn – prinsippskisse
+- Geometri, fundamentering / landkar
+- Montasjeprinsipp
+- QTO-konsekvenser"}, {"id": "K500-03", "name": "QTO – regulert og ett-spenns alternativ
+- Betong (m³)
+- Slakkarmering (kg)
+- Spennarmering (kg)
+- Stål tonn"}], "4. K540 – Høylandsbekken bru": [{"id": "K540-01", "name": "Ingen optimalisering foreløpig – kun mengdeverifisering
+QTO:
+- Betong (m³)
+- Slakkarmering (kg)
+- Stål tonn
+- Evt. spennarmering (kg) dersom det inngår"}], "5. K600 – Lene bruer (oppstrøms + nedstrøms)": [{"id": "K600-01", "name": "Byggbarhetsvurdering av regulert løsning
+- Regulert oppstrøms: ett spenn, 34 m, betongplatebru
+- Regulert nedstrøms: to spenn 26+26 m
+- Adkomst, rigg og midlertidige tiltak ved bekk
+- Vurder midlertidig rørlegging / midlertidig bru / fylling"}, {"id": "K600-02", "name": "Alternativstudie: oppstrøms bru lengre, mindre mur
+- 1–2 skissealternativer på prinsippnivå
+- Endret spenn / landkarlokalisering og konsekvens for terreng
+- Konsekvens for mur (mål: reduksjon)
+- Konsekvens for fremdrift og midlertidige arbeider"}, {"id": "K600-03", "name": "QTO – begge bruer (regulert og alternativ)
+- Betong (m³)
+- Slakkarmering (kg)
+- Spennarmering (kg)"}], "6. K700 – Optedal bru (kritisk linje)": [{"id": "K700-01", "name": "⚡ KRITISK LINJE – rask og enkel gjennomføring er premiss
+Optimalisert hovedløsning – ikke betongkasse
+- Minst ett alternativ til kassebru (f.eks. samvirke stålbjelker + betongdekke)
+- Regulert: kassebru i spennarmert betong, 5 spenn (34+40+56+40+34 m)"}, {"id": "K700-02", "name": "Byggbarhet for rask gjennomføring
+- Montasjeprinsipp
+- Minimale midlertidige arbeider
+- Konsekvens for støttemur ved østre landkar (ca. 340 m, maks 12 m høyde)"}, {"id": "K700-03", "name": "Opsjon: stålbjelkeløsning med samvirke
+- Separat opsjonsbeskrivelse for tilbudet
+- Fire langsgående parallelle stålbjelker + betongdekke"}, {"id": "K700-04", "name": "QTO – regulert kassebru (prissammenligning) + optimalisert løsning (faktisk tilbud)
+- Betong (m³)
+- Slakkarmering (kg)
+- Spennarmering (kg)
+- Stål tonn ved stålalternativ"}]}, "6 Faunapassasje Viltlokk": {"1. Geometri og løsning- vurdering": [{"id": "FAG-06-11", "name": "Brutype\n-\t\tMaterialvalg\n-\t\tHoveddimensjoner (prinsippsnitt)\nLengde, bredde og fri høyde (tegnet og målsatt)"}], "2. Geometri og valgt løsning": [{"id": "FAG-06-12", "name": "Lengde, bredde og fri høyde (tegnet og målsatt)"}], "3. Grunnforhold og fundamentering": [{"id": "FAG-06-21", "name": "Grunnforhold og fundamenteringsmetode\nBehov for:\n-\tmasseutskifting\n-\tstabilisering"}], "4. Drenering og vann": [{"id": "FAG-06-31", "name": "Dreneringsløsning (omfang), eventuell vannføring gjennom passasjen"}], "5. Lokk, terreng og vegetasjon": [{"id": "FAG-06-41", "name": "-\tOppbygning (lag og tykkelser)\n-\tOmfang terrengforming (m³)\n-\tOmfang vegetasjon (m²)\n-\tGjerder/ledesystemer (lengder)"}], "6. Byggefase": [{"id": "FAG-06-51", "name": "-\tMassebalanse\n-\tMidlertidige løsninger"}], "7. Usikkerheter": [{"id": "FAG-06-71", "name": "-\tHva som ikke er prosjektert\n-\tPoster med høy usikkerhet"}]}, "7 Kulvert (vei)": {"1. Dimensjon og type": [{"id": "FAG-07-11", "name": "-\tKonsepytvurdering\n-\tKulverttype\n-\tDimensjon (Ø / B x H)\n-\tLengde"}], "2. Vannføring": [{"id": "FAG-07-21", "name": "-\tDimensjonerende vannføring (Qdim/Q200)\n-\tKoter innløp/utløp"}], "3. Grunnforhold": [{"id": "FAG-07-31", "name": "-\tGrunnforhold (jord/fjell/myr)\n-\tBehov for masseutskifting eller tiltak"}], "4. Innløp/utløp og sikring": [{"id": "FAG-07-41", "name": "-\tOmfang erosjonssikring\n-\tSteinstørrelser"}], "5. Vegoppbygning over kulvert": [{"id": "FAG-07-51", "name": "-\tOverdekning\n-\tLagtykkelser"}], "6. Byggefase": [{"id": "FAG-07-61", "name": "Hvordan vann håndteres under bygging"}], "7. Mengder (må være kalkulerbare)": [{"id": "FAG-07-71", "name": "-\tGraving (m³)\n-\tTilbakefylling\n-\tErosjonssikring"}], "8. Usikkerheter": [{"id": "FAG-07-81", "name": "Hva som ikke er prosjektert"}]}, "8 Omlegging av bekk": {"1. Hydrologi / hydraulikk": [{"id": "FAG-08-11", "name": "Dimensjonerende vannføring (Q200 + klimafaktor)"}, {"id": "FAG-08-12", "name": "Fall og hastigheter"}], "2. Geometri nytt bekkeløp": [{"id": "FAG-08-21", "name": "-\tLengde\n-\tBredde og dybde\n-\tSkråninger\n-\tTverrsnitt"}], "3. Erosjonssikring": [{"id": "FAG-08-31", "name": "-\tOmfang (bunn/sider/innløp/utløp)\n-\tSteinstørrelser"}], "4. Geoteknikk": [{"id": "FAG-08-41", "name": "-\tStabilitet langs trasé\n-\tRisiko for undergraving"}], "5. Midlertidig bekk (anleggsfase)": [{"id": "FAG-08-51", "name": "Trase og lengde, kapasitet"}], "6. Restriksjoner": [{"id": "FAG-08-61", "name": "Tidsvinduer (gyting/yngel)"}], "7. Mengder / kalkylegrunnlag": [{"id": "FAG-08-71", "name": "-\tGraving (m³)\n-\tStein/plastring\n-\tSubstrat\n-\tVegetasjon"}], "8. Usikkerheter / forutsetninger": [{"id": "FAG-08-81", "name": "Hva som ikke er prosjektert"}]}, "9 Åpent Sedimentasjonsbasseng": {"1. Dimensjon og omfang": [{"id": "9-01", "name": "-\tBassengvolum (m³)\n-\tDybde\n-\tAreal/utstrekning"}], "3. Oppbygning": [{"id": "9-02", "name": "-\tTverrsnitt/prinsipp (skråninger, bunntype)\n-\tMassetyper (jord/stein)"}], "4. Tetting": [{"id": "9-03", "name": "-\tType (membran / naturlig)\n-\tOmfang (m²)"}], "5. Innløp og utløp": [{"id": "9-04", "name": "-\tPrinsipp og dimensjon\n-\tErosjonssikring (omfang)"}], "6. Grunnforhold": [{"id": "9-05", "name": "-\tGrunnforhold (jord/myr/fjell)\n-\tBehov for masseutskifting eller tiltak"}], "7. Byggefase": [{"id": "9-06", "name": "Midlertidig vannhåndtering"}], "8. Mengder": [{"id": "9-07", "name": "-\tGraving (m³)\n-\tMasser (fylling/oppbygging)\n-\tTetting (m²)\n-\tErosjonssikring"}], "9. Usikkerheter": [{"id": "9-08", "name": "Hva som ikke er prosjektert"}]}, "10 Lukket sedimentasjonsbasseng": {"1. Type og omfang": [{"id": "10-01", "name": "-\tLøsningstype (prefab / plasstøpt)\n-\tVolum (m³)\n-\tAntall kammer"}], "2. Geometri og dimensjoner": [{"id": "10-02", "name": "-\tLengde / bredde / høyde\n-\tKoter (bunn / topp / inn-/utløp)"}], "3. Konstruksjon": [{"id": "10-03", "name": "-\tBetong (m³)\n-\tArmering (kg)\n-\tLokk/dekke (type og dimensjon)\n-\tKrav til tetthet"}], "4. Rør og tilkoblinger": [{"id": "10-04", "name": "-\tInnløp/utløp (antall og dimensjon)\n-\tKoter inn-/utløp\n-\tKummer/inspeksjonspunkter"}], "5. Grunnforhold og fundamentering": [{"id": "10-05", "name": "Behov for:\n-Masseutskifting\n-fundamentplate / peler\nJord / fjell"}], "6. Graving og tilbakefylling": [{"id": "10-06", "name": "-\tm³ graving\n-\tm³ tilbakefylling\n-\tKrav til masser og komprimering"}], "8. Mengder (må være kalkulerbare)": [{"id": "10-07", "name": "-\tBetong (m³)\n-\tArmering (kg)\n-\tGraving / tilbakefylling (m³)\n-\tRør (m / dimensjoner)\n-\tKummer (antall)"}], "9. Usikkerheter": [{"id": "10-08", "name": "-\tHva som ikke er prosjektert\n-\tValg av løsning (prefab vs. plasstøpt hvis ikke avklart)\n-\tGrunnforhold"}]}, "11  Ankomstveier": {"1. Geometri og omfang": [{"id": "11-01", "name": "-\tLengde\n-\tPlan og profil\n-\tStigning\n-\tTverrprofil (bredde)"}], "2. Oppbygning av vei": [{"id": "11-02", "name": "-\tLagtykkelser\n-\tMaterialtyper"}], "3. Grunnforhold langs trasé": [{"id": "11-03", "name": "-\tJord / fjell\n-\tBehov for:\n-\tutskifting\n-\tsprengning\n-\tEventuelle myrområder"}], "4. Drenering": [{"id": "11-04", "name": "-\tGrøfter (dimensjon og sidevalg)\n-\tStikkrenner (antall, dimensjon, plassering)"}], "5. Masse og terreng": [{"id": "11-05", "name": "-\tOmfang jord / fjell (m³)\n-\tFyllinger og skjæringer (høyder/helninger)\n-\tSikringsomfang:\n-\t\tbolting\n-\t\terosjonssikring"}], "6. Kryssing og tilkobling": [{"id": "11-06", "name": "Omfang tiltak på eksisterende vei"}], "7. Mengder": [{"id": "11-07", "name": "-\tGraving (m³ jord/fjell)\n-\tOppbygging (m³)\n-\tLengde vei\n-\tStikkrenner (antall/dimensjon)"}]}, "12 Passering av myr/ bevarfing av myra": {"1. Omfang": [{"id": "12-01", "name": "-\tLengde og bredde myrområder\n-\tMektighet (dybde pr. område)"}], "2. Grunnundersøkelser- vurdering": [{"id": "12-02", "name": "-\tHovedtype og styrke (bløt/myk)\n-\tSetningspotensial"}], "3. Valgt håndteringsmetode per område": [{"id": "12-03", "name": "Metode pr. område:\n-\tmasseutskifting (omfang)\n-\tforbelastning\n-\tlettfylling\n-\tstabilisering"}], "4. Dimensjonering og nivå": [{"id": "12-04", "name": "-\tUtskiftningsdybde (m)\n-\tSideutslag (bredde)\n-\tOppbygning av fylling"}], "6. Fremdrift (kritisk kostdriver)": [{"id": "12-05", "name": "Krav til ventetid (forbelastning)"}], "7. Setninger og fremdrift": [{"id": "12-06", "name": "-\tForventede setninger\n-\tKrav til ventetid (ved forbelastning)\n-\tKrav til dokumentasjon"}], "8. Byggefase": [{"id": "12-07", "name": "Behov for midlertidige tiltak:\n-\tgeonett\n-\tforsterkning"}], "9. Mengder": [{"id": "12-08", "name": "-\tm³ myr som fjernes\n-\tm³ tilførte masser\n-\tMengder stabilisering / lettfylling"}], "10. Usikkerheter": [{"id": "12-09", "name": "-\tHva som ikke er prosjektert\n-\tVariasjon i dybder/forhold"}]}, "13 Overvannhåntering": {"1. Geometrii": [{"id": "13-01", "name": "Dimensjoner på: \n-\trør (Ø + lengder)\n-\tgrøfter (bredde/dybde)\n-\tkummer"}], "2. Basseng:": [{"id": "13-02", "name": "Dimensjoner på:\n-\tvolum (m³)\n-\tareal og dybde"}], "3. Utslippspunkter": [{"id": "13-03", "name": "-\tAntall og plassering\n-\tErosjonssikring (omfang)"}], "4. Erosjonssikring (mengder)": [{"id": "13-04", "name": "-\tOmfang\n-\tType\n-\tSteinstørrelser"}], "5. Sedimentasjonsbasseng (åpen og lukket)": [{"id": "13-05", "name": "-\tVolum (m³)\n-\tInn-/utløp (omfang)\n-\tTetting (type og omfang)"}], "6. Flom og sikkerhet": [{"id": "13-06", "name": "vurdering  på at løsning tåler Q200"}], "7. Midlertidig håndtering": [{"id": "13-07", "name": "-\tHvordan overvann håndteres i anlegg\n-\tVurdering om må bygges midlertidige løsninger"}], "8. Usikkerheter": [{"id": "13-08", "name": "-\tHva som ikke er prosjektert\n-\tForutsetninger som kan påvirke dimensjon/mengder"}]}, "14 Skredsikring": {"1. Omfang": [{"id": "14-01", "name": "-\tLengder og høyder på berørte strekninger\n-\tType skred (stein/jord/snø)"}], "2. Konkrete tiltak per sone": [{"id": "14-02", "name": "Hvilket tiltak hvor:\n- rensk\n- bolting\n- nett\n- fanggjerder\n- voller / grøfter"}], "3. Bolting og sikring i skrent": [{"id": "14-03", "name": "-\tAntall bolter pr. m² / pr. profil\n-\tBoltetyper og lengder\n-\tOmfang av rensk m²"}], "4. Fanggjerder / skredgjerder": [{"id": "14-04", "name": "-\tPlassering (skisse/prinsipp)\n-\tLengde og høyde\n-\tEnergiopptak (kJ-klasse)"}], "5. Voller og grøfter": [{"id": "14-05", "name": "-\tGeometri (høyde/bredde/lengde)\n-\tMassetype"}], "7 Mengder": [{"id": "14-06", "name": "Mengder:\n-\tm² rensk\n-\tm bolting\n-\tm fanggjerde\n-\tm³ voll/grøft"}], "8. Usikkerheter": [{"id": "14-07", "name": "-\tHva som ikke er prosjektert\n-\tVariasjon i omfang per sone"}]}, "15 Støttemurer": {"1. Geometri og omfang": [{"id": "15-01", "name": "-\tLengde og høyde pr. mur\n-\tTopp- og bunnkoter"}], "2. Murtype og konstruksjon": [{"id": "15-02", "name": "-\tValgt murtype (plasstøpt, prefab, gabion, spunt etc.)\n-\tPrinsippsnitt med dimensjoner\n-\tMaterialvalg"}], "3. Geoteknikk og fundamentering – vurdering": [{"id": "15-03", "name": "-\tJord / fjell\n-\tBehov for tiltak:\n-\t\tmasseutskifting\n-\t\tstabilisering\""}], "4. Drenering": [{"id": "15-04", "name": "-\tDrensløsning bak mur\n-\tFilterlag (type og tykkelse)"}], "5. Sikring og overflate": [{"id": "15-05", "name": "-\tErosjonssikring ved fot/topp\n-\tOverflatebehandling"}], "6. Byggefase": [{"id": "15-06", "name": "Midlertidig sikring (type/omfang)"}], "7. Mengder": [{"id": "15-07", "name": "-\tBetong (m³)\n-\tArmering (kg)\n-\tGraving og tilbakefylling (m³)\n-\tDrenslag/filter"}], "8. Usikkerheter": [{"id": "15-08", "name": "-\tHva som ikke er prosjektert\n-\tVariasjon i grunnforhold langs mur"}]}, "16 Bekkeklulvert": {"1. Dimensjon og omfang": [{"id": "16-01", "name": "Kulverttype\nDimensjon (B x H / Ø)\nLengde"}], "2. Erosjonssikring (stor kostdriver)": [{"id": "16-02", "name": "Omfang (innløp/utløp/bunn/sider)\nSteinstørrelser"}], "3. Grunnforhold vurdering": [{"id": "16-03", "name": "-\tJord/fjell/myr\n-\tBehov for masseutskifting eller tiltak"}], "4. Fiskekrav (hvis aktuelt)": [{"id": "16-04", "name": "Krav til bunn (substrat)\nEventuelle krav til vannhastighet/dybde"}], "5. Byggefase": [{"id": "16-05", "name": "Midlertidig vannhåndtering\nBehov for midlertidig bekk"}], "6. Mengder (må være gitt eller beregnbare)": [{"id": "16-06", "name": "Graving (m³)\nTilbakefylling\nErosjonssikring\nSubstrat"}]}};
 
 let tasks = [];
 let undersecOpen = {};
@@ -37,7 +101,7 @@ let modelLinks = [
 ];
 let modelIdCounter = 2;
 let linkEditGroup = 'doc';
-let filters = {valgte:false, frist:false, pågår:false, irrelevant:false};
+let filters = {valgte:false, frist:false, pågår:false};
 let activeTab = 'liste';
 let kanbanView = 'tidslinje';
 
@@ -65,7 +129,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: '', sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: '', irrelevant: false
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
           });
         });
       });
@@ -79,7 +143,7 @@ function initTasks() {
           tasks.push({
             id: idCounter++, excelId: item.id,
             section: sec, undersec: firstName, sub: sub, name: item.name,
-            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: '', irrelevant: false
+            selected: false, frist: '', timer: '', status: 'Ikke startet', link: '', comment: '', eier: '', ansvar: '', fredagstatus: ''
           });
         });
       });
@@ -93,6 +157,12 @@ function loadSaved() {
     var saved = localStorage.getItem('bestillingsliste_v4');
     if (!saved) return;
     var data = JSON.parse(saved);
+
+    // Restore section structure (handles renames)
+    if (data.SECTIONS_DATA) {
+      Object.keys(SECTIONS_DATA).forEach(function(k){ delete SECTIONS_DATA[k]; });
+      Object.assign(SECTIONS_DATA, data.SECTIONS_DATA);
+    }
 
     // Restore undersec open/closed state
     if (data.undersecOpen) Object.assign(undersecOpen, data.undersecOpen);
@@ -138,8 +208,7 @@ function loadSaved() {
             status: s.status || 'Ikke startet',
             link: s.link || '', comment: s.comment || '',
             ansvar: s.ansvar || '', fredagstatus: s.fredagstatus || '',
-            eier: s.eier || '',
-            irrelevant: !!s.irrelevant
+            eier: s.eier || ''
           });
           if (s.id >= idCounter) idCounter = s.id + 1;
         });
@@ -159,7 +228,6 @@ function loadSaved() {
             if (s.selected !== undefined) t.selected = s.selected;
             if (s.name     !== undefined) t.name     = s.name;
             if (s.undersec !== undefined) t.undersec = s.undersec;
-            if (s.irrelevant !== undefined) t.irrelevant = s.irrelevant;
           }
         });
         // Restore custom-added tasks (excelId === '')
@@ -336,14 +404,6 @@ function toggleSelect(id) {
   render();
 }
 
-function toggleIrrelevant(id) {
-  const t = tasks.find(t=>t.id===id);
-  if (!t) return;
-  t.irrelevant = !t.irrelevant;
-  scheduleAutoSave();
-  render();
-}
-
 function getToday() { return new Date().toISOString().split('T')[0]; }
 
 
@@ -463,7 +523,6 @@ function _filterTasks(list, q, today) {
     if(filters.valgte && !t.selected) return false;
     if(filters.frist && !(t.frist&&t.frist<today&&t.status!=='Ferdig')) return false;
     if(filters['pågår'] && t.status!=='Pågår') return false;
-    if(filters.irrelevant && t.irrelevant) return false;
     return true;
   });
 }
@@ -499,18 +558,13 @@ function _renderSubGroups(items, secName, hue, today, undersec) {
     si.forEach(function(t){
       var ov=t.frist&&t.frist<today&&t.status!=='Ferdig';
       var sc=STATUS_COLORS[t.status]||{bg:'',color:''};
-      html += '<div class="task-row'+(t.selected?' selected':'')+(t.irrelevant?' task-irrelevant':'')+'" id="row-'+t.id+'">';
+      html += '<div class="task-row'+(t.selected?' selected':'')+'" id="row-'+t.id+'">';
       html += '<input type="checkbox" class="cb" '+(t.selected?'checked':'')+' onchange="toggleSelect('+t.id+')">';
       html += '<div class="task-name-cell">';
       html += '<div class="name-display-wrap" id="namedisplay-'+t.id+'">';
       html += '<div class="task-name-content">'+makeName(t.name)+'</div>';
-      html += '<div class="task-row-actions">';
-      html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger">&#9998;</button>';
-      html += '<button class="move-btn" onclick="moveTask('+t.id+',-1)" title="Flytt opp">&#9650;</button>';
-      html += '<button class="move-btn" onclick="moveTask('+t.id+',1)" title="Flytt ned">&#9660;</button>';
-      html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
-      html += '<button class="irrelevant-btn'+(t.irrelevant?' is-irrelevant':'')+'" onclick="toggleIrrelevant('+t.id+')" title="'+(t.irrelevant?'Merk som relevant':'Merk som ikke relevant')+'">'+(t.irrelevant?'&#10003; Ikke relevant':'&#8416; Ikke relevant')+'</button>';
-      html += '</div>';
+      html += '<button class="pencil-btn" onclick="startEditName('+t.id+')" title="Rediger (PIN kreves)">&#9998;</button>';
+      if(!t.excelId) html += '<button class="delete-btn" onclick="deleteTask('+t.id+')" title="Slett">\u00d7</button>';
       html += '</div>';
       html += '<div class="name-edit-wrap" id="nameedit-'+t.id+'">';
       html += '<textarea class="name-edit-input" rows="3"'
@@ -846,34 +900,9 @@ function makeNote(t, c, forceOverdue, today) {
 
 
 function deleteTask(id) {
-  if (!confirm('Slett denne posten?')) return;
   tasks = tasks.filter(function(t){ return t.id !== id; });
   scheduleAutoSave();
   render();
-}
-
-function moveTask(id, dir) {
-  // Find the task and its neighbours within the same section+undersec+sub group
-  var t = tasks.find(function(t){ return t.id===id; });
-  if (!t) return;
-  var group = tasks.filter(function(x){
-    return x.section===t.section && x.undersec===t.undersec && x.sub===t.sub;
-  });
-  var idx = group.indexOf(t);
-  var newIdx = idx + dir;
-  if (newIdx < 0 || newIdx >= group.length) return;
-  // Swap in the main tasks array
-  var ti = tasks.indexOf(t);
-  var tn = tasks.indexOf(group[newIdx]);
-  tasks[ti] = group[newIdx];
-  tasks[tn] = t;
-  scheduleAutoSave();
-  render();
-  // Scroll the moved row back into view
-  setTimeout(function(){
-    var row = document.getElementById('row-'+id);
-    if (row) row.scrollIntoView({block:'nearest'});
-  }, 30);
 }
 
 function addTask(section, sub, undersec) {
@@ -1082,7 +1111,12 @@ function getPin(){ try{ return localStorage.getItem(PIN_KEY)||null; }catch(e){ r
 function savePin(p){ try{ localStorage.setItem(PIN_KEY,p); }catch(e){} }
 
 function requestLockedEdit(id,field,wrapEl){
-  openInlineEditor(id,field,wrapEl);
+  var t=tasks.find(t=>t.id===id); if(!t) return;
+  var hasVal=field==='frist'?!!t.frist:!!t.timer;
+  if(!hasVal){ openInlineEditor(id,field,wrapEl); return; }
+  var stored=getPin();
+  if(!stored) openPinModal('set-first',null,id,field,wrapEl);
+  else openPinModal('verify',stored,id,field,wrapEl);
 }
 
 function openInlineEditor(id,field,wrapEl){
@@ -1157,7 +1191,10 @@ function changePinFlow(){
 }
 
 function startEditName(id){
-  _doStartEditName(id);
+  var stored=getPin();
+  if(stored) openPinModal('verify',stored,null,null,null);
+  else openPinModal('set-first',null,null,null,null);
+  pinCallback=function(){ _doStartEditName(id); };
 }
 function _doStartEditName(id){
   document.getElementById('namedisplay-'+id).style.display='none';
@@ -1702,34 +1739,43 @@ scheduleAutoSave = function() {
 };
 window.scheduleAutoSave = scheduleAutoSave;
 
-var _pn = localStorage.getItem('projectName');
-if (_pn) {
-  var _pnel = document.getElementById('project-name');
-  if (_pnel) _pnel.textContent = _pn;
-}
+// If saved data exists, load it first (skip auto-creating default underkapitler)
+var _hasSaved = false;
+try { _hasSaved = !!localStorage.getItem('bestillingsliste_v4'); } catch(e) {}
 
-function _appInit() {
-  // Always populate from SECTIONS_DATA first
+
+window.addEventListener('DOMContentLoaded', function () {
   initTasks();
-  // Then merge any saved user data (statuses, frister, kommentarer etc.) on top
-  loadSaved();
   render();
   renderLinks();
   renderModelLinks();
   spLoadConfig();
-}
+});
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', _appInit);
-} else {
-  _appInit();
-}
 
-// Sørg for at lagring skjer etter endring
+
+
+
+
+// sørg for at lagring skjer etter endring
+
 document.addEventListener("change", scheduleAutoSave);
 document.addEventListener("input", scheduleAutoSave);
 document.addEventListener("click", function(e){
-  if (e.target.matches("select, input, textarea, button")) {
-    scheduleAutoSave();
-  }
+    if(e.target.matches("select, input, textarea, button")){
+        scheduleAutoSave();
+    }
 });
+
+
+
+
+
+var _pn=localStorage.getItem('projectName');
+if(_pn){
+    var _pnel=document.getElementById('project-name');
+    if(_pnel) _pnel.textContent=_pn;
+}
+``
+
+
